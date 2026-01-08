@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<string.h>
 #include<ctype.h>
-
+//汉字处理，错误演示
 int main()
 {
     int n;
