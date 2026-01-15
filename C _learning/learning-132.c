@@ -1,23 +1,4 @@
 #include<stdio.h>
-
-// int cal_cow(int n)
-// {
-//     if(n<=4)
-//     {
-//         return n;
-//     }
-//     int sum = 4;
-//     if(n>=5)
-//     {
-//         for(int i = 5;i<=n;i++)
-//         {
-//             sum += (i-3);
-//         }
-//     }
-//     return sum;
-
-// }
-
 int main()
 {
     int n;

@@ -64,7 +64,6 @@ int main()
                 {
                     arr3[h-1] = arr3[h];
                 }
-                arr3[index] = 0;
                 index--;
                 j--;
             }

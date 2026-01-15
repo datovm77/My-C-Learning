@@ -21,9 +21,6 @@ int judge_su(int number) {
 }
 
 
-
-
-
 int main()
 {
     int x,y;

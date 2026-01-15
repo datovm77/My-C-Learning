@@ -15,10 +15,7 @@ int main()
         }
         i++;
     }
-    // for(int j = 0; j < i;j++)
-    // {
-    //     printf("%c",num_rem[j]);
-    // }
+    
     for(int j = i;j>=0;j--)
     {
         printf("%d ",num_rem[j]);

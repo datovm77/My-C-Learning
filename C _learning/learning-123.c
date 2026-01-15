@@ -1,48 +1,35 @@
 #include <stdio.h>
 
-/*********Begin*********/
-long long int GCD(long long int n, long long int m) // 编写最大公约数GCD函数
-{
-    long long int result = n % m; // n>m
-    if (result == 0)
-    {
-        return m;
+// 1. 使用迭代法求GCD（更稳健），最大公约数 (GCD)
+long long GCD(long long a, long long b) {
+    long long temp;
+    while (b != 0) {
+        temp = a % b;
+        a = b;
+        b = temp;
     }
-    return GCD(m, result);
+    return a;
 }
 
-// int gcd(int a, int b)
-// {
-//     int temp;
-//     while (b != 0)
-//     {
-//         temp = b;
-//         b = a % b;
-//         a = temp;
-//     }
-//     return a;
-// }
-// 两个数的最大公约数，等于其中较小的数和两数相除余数的最大公约数
-
-/*********Begin*********/
-long long int LCM(long long int n, long long int m) // 编写最小公倍数LCM函数
-{
-    return ((n * m) / GCD(n, m)); // 最小公倍数*最大公约数 = a*b
+// 2. 防溢出求LCM，最小公倍数 (LCM)
+long long LCM(long long a, long long b) {
+    if (a == 0 || b == 0) return 0; // 防止除以0的边缘情况
+    // 技巧：先除后乘
+    return (a / GCD(a, b)) * b;
 }
 
-/*********End**********/
-int main(void)
-{
-    /*********Begin*********/
-    // printf("%d\n",GCD(24,18));
-    /*********End**********/
-    long long int n, m;
-    scanf("%Ld %Ld", &n, &m);
-    if (n < 0 || m < 0)
-    {
+int main() {
+    long long n, m;
+    
+    // 3. 使用标准格式符 %lld
+    if (scanf("%lld %lld", &n, &m) != 2) return 1;
+
+    // 4. 负数处理（你的代码里有，这很好，是加分项）
+    if (n < 0 || m < 0) {
         printf("Input Error\n");
         return 0;
     }
-    printf("%Ld %Ld\n", GCD(n, m), LCM(n, m));
+
+    printf("%lld %lld\n", GCD(n, m), LCM(n, m));
     return 0;
 }

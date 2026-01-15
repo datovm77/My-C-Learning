@@ -4,7 +4,7 @@ int main()
 {
     char number[10000];
     int num_single;
-    scanf("%s %d",&number,&num_single);
+    scanf("%s %d",number,&num_single);
     int count = 0;
     int len = strlen(number);
     for(int i = 0;i<len;i++)
