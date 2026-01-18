@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<ctype.h>
-//include
+//isspace 判断字符是否为空白字符
+//toupper 如果 ch 是小写字母，转为大写；如果是大写字母或标点符号，保持不变
 int main()
 {
     int ch;

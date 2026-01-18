@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
+//isalpha 判断是不是字母
+//isalnum 判断是不是字母或者数字
 
 int main() {
     int n;

@@ -37,7 +37,7 @@ int main() {
     // 4. 输出
     for (i = 0; i < n; i++) {
         for (j = 0; j < n; j++)
-            printf("%d ", a[i][j]);
+            printf("%3d ", a[i][j]);
         printf("\n");
     }
     return 0;

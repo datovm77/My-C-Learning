@@ -1,16 +1,7 @@
 #include<stdio.h>
 #include<ctype.h>
 #include<string.h>
-// int isVowel(char ch)
-// {
-//     if((ch=='a')||(ch=='e')||(ch=='i')||(ch=='o')||(ch=='u'))
-//     {
-//         return 1;
-//     }
-//     else{
-//         return 0;
-//     }
-// }
+
 int main()
 {
     int n;
