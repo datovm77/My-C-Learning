@@ -1,16 +1,14 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
 
-int main()
-{
-    char str1[15] = "hello world";
-    cout << str1 << endl;
+int main() {
+  char str1[15] = "hello world";
+  cout << str1 << endl;
 
-    string str2 = "hello world";
-    cout << str2 << endl;
+  string str2 = "hello world";
+  cout << str2 << endl;
 
-    // system("pause");
+  // system("pause");
 
-
-    return 0;
+  return 0;
 }
