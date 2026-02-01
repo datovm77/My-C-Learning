@@ -10,12 +10,12 @@ int main() {
 
     // !!! 注意：这里隐藏了一个 Bug
     // 数组长度是 5，下标应该是 0 到 4
-    for (int i = 0; i <= 5; i++) {
+    for (int i = 0; i < 5; i++) {
         int current_num = arr[i];
         total += current_num;
         
         // 我们在这里假装打印一下，迷惑你
-        cout << "第 " << i << " 次循环，加上了: " << current_num << endl;
+        cout << "第 " << i+1 << " 次循环，加上了: " << current_num << endl;
     }
 
     cout << "-----------------------" << endl;

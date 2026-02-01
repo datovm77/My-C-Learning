@@ -2,9 +2,12 @@
 #include <format> // C++20 新特性
 #include <string>
 
+// pragma 编译指令会在编译时生成注释，不过更好的方案是修改编译选项
+// 临时解决方案：使用条件编译检查 C++ 标准
 using namespace std;
 
-int main() {
+int main()
+{
     string name = "Alice";
     int score = 95;
     double gpa = 3.85234;
