@@ -21,7 +21,6 @@ int main() {
     int a = 10;
     showValue(a);
 
-    system("pause");
 
     return 0;
 }
