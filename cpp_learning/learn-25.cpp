@@ -2,17 +2,17 @@
 #include<format>
 struct person
 {
-private:
+public:
     int m_age ;
-
+    int *m_height;
 public:
 
-    person() : m_age(0)
+    person() 
     {
         std::cout<< "person的无参构造"<<std::endl;
     }
 
-    person(int a) : m_age(a)
+    person(int a,int height) : m_age(a),m_height(new int(height))
     {
         std::cout<< "person的有参构造"<<std::endl;
     }
@@ -22,15 +22,6 @@ public:
         std::cout<< "person的拷贝构造"<<std::endl;
     }
 
-    void setmy_age(int my_age)
-    {
-        this->m_age = my_age;
-    }
-
-    int knowm_age()
-    {
-        return m_age;
-    }
 
     ~person()
     {
@@ -40,12 +31,7 @@ public:
 };
 void test01()
 {
-    person p1;
-    p1.setmy_age(10);
 
-    person p2(p1);
-
-    std::cout << std::format("p2的年龄为：{}岁",p2.knowm_age()) << std::endl;
 
 }
 int main()
