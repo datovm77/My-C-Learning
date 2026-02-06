@@ -5,13 +5,13 @@ class BankAccount
 {
 private:
     const int accountNumber; // 常量账号
-    string &ownerName;       // 引用持有人姓名
+    string ownerName;       // 引用持有人姓名
     double balance;
     static int totalAccounts;
 
 public:
     // 完整的初始化列表示例
-    BankAccount(int accNum, string &owner, double initial = 0.0)
+    BankAccount(int accNum, const string &owner, double initial = 0.0)
         : accountNumber(accNum), // 常量必须初始化
           ownerName(owner),      // 引用必须初始化
           balance(initial)       // 普通成员
