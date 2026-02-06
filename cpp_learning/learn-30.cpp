@@ -17,21 +17,21 @@ class Building
 {
     //告诉编译器 goodGay类是Building类的好朋友，可以访问到Building类中私有内容
     friend class goodGay;
-
-public:
-    Building();
-
 public:
     string m_SittingRoom; //客厅
 private:
     string m_Bedroom;     //卧室（由于图片截断，根据代码逻辑补全）
+
+public:
+    Building():m_SittingRoom("客厅"),m_Bedroom("卧室") {}
+
 };
 
-Building::Building()
-{
-    this->m_SittingRoom = "客厅";
-    this->m_Bedroom = "卧室";
-}
+// Building::Building()
+// {
+//     this->m_SittingRoom = "客厅";
+//     this->m_Bedroom = "卧室";
+// }
 
 goodGay::goodGay()
 {
