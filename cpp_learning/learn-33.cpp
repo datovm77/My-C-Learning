@@ -41,8 +41,8 @@ void test01()
 void test02()
 {
     Person p2;
-    std::cout << (p2++)++ << std::endl;
-    std::cout << p2 << std::endl;
+    std::cout << (p2++)++ << std::endl;  // 输出: 0
+    std::cout << p2 << std::endl;        // 输出: 1 (不是2！)
 }
 
 int main()
