@@ -1,5 +1,3 @@
-The user wants a comprehensive knowledge summary about C++ class templates, covering multiple topics from basic to advanced. They explicitly said no need to read any files or create files, just output directly. Let me write a detailed, well-organized tutorial in Chinese.
-
 # C++ 类模板 —— 完整知识总结
 
 ---

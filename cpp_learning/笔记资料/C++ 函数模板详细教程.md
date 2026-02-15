@@ -24,7 +24,7 @@
 
 ## 1️⃣ 什么是函数模板
 
-**函数模板（Function Template）** 是C++中的一种泛型编程机制，允许我们编写与类型无关的通用代码。模板本身**不是函数**，而是编译器用来**生成函数的蓝图或配方**。
+**函数模板（Function Template）** 是C++中的一种泛型编程机制， 
 
 简单来说：
 
@@ -453,7 +453,7 @@ bool isEqual<const char*>(const char* a, const char* b) {
 
 int main() {
     cout << isEqual(10, 10) << endl;              // 1（使用通用模板）
-    cout << isEqual("hello", "hello") << endl;    // 0（指针比较，不相等）
+    cout << isEqual("hello", "hello") << endl;    // 0（指针比较，不相等）//实际是1
     
     const char* s1 = "hello";
     const char* s2 = "hello";
