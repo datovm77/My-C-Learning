@@ -512,40 +512,6 @@
 
 - 需要固定大小数组 → `array`
 
----
-
-The user wants me to take their original course schedule (the Heima C++ STL course) and interleave the missing content I identified into the existing course order, creating a comprehensive learning roadmap. Let me organize this logically.
-
-The original course goes:
-
-1. STL初识 (20-22): vector basics, custom types, nested containers
-
-2. string容器 (23-30)
-
-3. vector容器 (31-37)
-
-4. deque容器 (38-43)
-
-5. STL案例1 (44)
-
-6. stack容器 (45-46)
-
-7. queue容器 (47-48)
-
-8. list容器 (49-56)
-
-9. set容器 (57-64)
-
-10. pair (62)
-
-11. map容器 (65-69)
-
-12. STL案例2 (70)
-
-13. 函数对象/谓词 (71-76)
-
-14. 算法部分 (77-97)
-
 # 调整后的完整学习路线
 
 下面我把你原课程的编号保留，**新增补充内容用 `[补]` 标记**，插入在最合理的学习位置。
@@ -921,3 +887,17 @@ The original course goes:
 8. **容器选择指南** 作为容器部分的收尾总结
 
 9. **缺失算法**分别插在对应的原课程算法类别之后 — `lower_bound` 跟在 `binary_search` 后面，`stable_sort` 跟在 `sort` 后面，`remove` 跟在 `replace` 后面，逻辑连贯
+
+### 🔴 优先级最高（影响后续理解）
+
+1. **vector 的扩容机制** - 为什么 1.5 倍或 2 倍？内存分配策略？
+2. **迭代器失效场景** - 必须写代码验证，不要只看书
+3. **哈希表原理** - `unordered_map` 的 bucket、load_factor、rehash
+4. **仿函数 vs Lambda** - 捕获列表、mutable 关键字
+
+### 🟡 值得深挖的细节
+
+- `priority_queue` 的底层堆调整过程（`push_heap`/`pop_heap`）
+- `list` vs `forward_list` 的内存占用差异（节点结构）
+- `deque` 的分段连续存储 vs `vector` 的完全连续存储
+- 各种算法的复杂度保证（C++ 标准有明确规定）

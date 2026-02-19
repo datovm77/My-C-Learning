@@ -403,7 +403,7 @@ public:
     // 完整的初始化列表示例
     BankAccount(int accNum, const string& owner, double initial = 0.0)
         : accountNumber(accNum),   // 常量必须初始化
-          ownerName(owner),        // 引用必须初始化
+          ownerName(owner),        // 对象建议用初始化列表
           balance(initial)         // 普通成员
     {
         totalAccounts++;

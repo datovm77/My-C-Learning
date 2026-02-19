@@ -120,9 +120,11 @@ public:
 
 ### this 指针不能被修改
 
+`this` 指针是一个常指针（`ClassName* const`），它的指向在函数调用期间是不能改变的：
+
 ```cpp
-void func() {
-    this = nullptr;        // 错误!不能修改 this
+void MyClass::someMemberFunc() {
+    this = nullptr;        // 错误! 不能修改 this 的值
     this = &otherObject;   // 错误!
 }
 ```

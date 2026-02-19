@@ -99,6 +99,22 @@ it + n     // 向后跳跃 n 个位置（仅随机访问迭代器）
 it1 == it2 // 判断两个迭代器是否指向同一位置
 ```
 
+### 1.5 STL 原理补充：复杂度与迭代器失效（易错点）
+
+很多 STL 代码“看起来能跑”，但性能和稳定性问题往往出在这两件事上：
+
+- **复杂度意识**：`vector` 随机访问是 O(1)，但中间插入/删除通常是 O(n)。
+- **迭代器失效**：容器结构变化后，旧迭代器/引用/指针可能失效。
+
+高频规则（先记住这 4 条）：
+
+- `vector` 扩容后，原有迭代器、引用、指针通常全部失效。
+- `vector::erase` 会让被删位置及其后的迭代器失效。
+- `reserve()` 改变的是 **capacity**，不改变 **size**；`resize()` 会改变 **size**。
+- 迭代器尽量用 `auto`，只读遍历优先 `const auto&`，减少类型噪音与拷贝。
+
+> 💡 编译建议：本文示例默认按 `-std=c++17`；涉及 C++20 的代码会单独标注。
+
 ---
 
 ## 二、vector 存放内置数据类型
@@ -126,30 +142,29 @@ it1 == it2 // 判断两个迭代器是否指向同一位置
 ### 2.2 基本用法：创建与添加元素
 
 ```cpp
-#include <iostream>
 #include <vector>
-using namespace std;
+#include <iostream>
 
 int main() {
-    // ========== 1. 创建 vector ==========
-
-    vector<int> v1;                    // 空的 vector
-    vector<int> v2(5);                 // 5 个元素，默认初始化为 0
-    vector<int> v3(5, 42);             // 5 个元素，每个都是 42
-    vector<int> v4 = {10, 20, 30};     // 初始化列表（C++11）
-    vector<int> v5(v4);                // 拷贝构造
-    vector<int> v6(v4.begin(), v4.end()); // 通过迭代器区间构造
+    // ========== 1. 创建 vector（从基础到进阶） ==========
+    std::vector<int> v1;                 // 空 vector
+    std::vector<int> v2(5);              // 5 个元素，值初始化为 0
+    std::vector<int> v3(5, 42);          // 5 个 42
+    std::vector<int> v4{10, 20, 30};     // 列表初始化（推荐）
+    std::vector<int> v5(v4);             // 拷贝构造
+    std::vector<int> v6(v4.begin(), v4.end()); // 区间构造
+    std::vector v7{1, 2, 3};             // C++17: 类模板实参推导（CTAD）
 
     // ========== 2. 添加元素 ==========
+    v1.reserve(8); // 预留容量，减少扩容次数
+    for (int x : {10, 20, 30, 40}) {
+        v1.push_back(x);
+    }
 
-    v1.push_back(10);   // 尾部添加 10
-    v1.push_back(20);   // 尾部添加 20
-    v1.push_back(30);   // 尾部添加 30
-    v1.push_back(40);   // 尾部添加 40
-
-    // C++11: emplace_back 直接在容器内构造元素，避免拷贝
+    // emplace_back 对内置类型收益不大，对自定义类型更明显
     v1.emplace_back(50);
 
+    std::cout << "v1 size = " << v1.size() << '\n';
     return 0;
 }
 ```
@@ -169,59 +184,49 @@ int main() {
 ```cpp
 #include <iostream>
 #include <vector>
-#include <algorithm> // for_each 需要
-using namespace std;
-
-// for_each 需要的回调函数
-void printElement(int val) {
-    cout << val << " ";
-}
+#include <algorithm> // std::for_each
+#include <ranges>    // std::ranges::for_each (C++20)
 
 int main() {
-    vector<int> v = {10, 20, 30, 40, 50};
+    std::vector<int> v{10, 20, 30, 40, 50};
 
-    // ========== 方式一：迭代器遍历 ==========
-    cout << "方式一（迭代器）：";
-    for (vector<int>::iterator it = v.begin(); it != v.end(); ++it) {
-        cout << *it << " ";  // *it 解引用获取值
+    // ========== 方式一：下标（先理解顺序访问） ==========
+    std::cout << "方式一（下标）：";
+    for (std::size_t i = 0; i < v.size(); ++i) {
+        std::cout << v[i] << ' ';
     }
-    cout << endl;
+    std::cout << '\n';
 
-    // ========== 方式二：auto 简化迭代器（C++11） ==========
-    cout << "方式二（auto 迭代器）：";
+    // ========== 方式二：auto 迭代器 ==========
+    std::cout << "方式二（auto 迭代器）：";
     for (auto it = v.begin(); it != v.end(); ++it) {
-        cout << *it << " ";
+        std::cout << *it << ' ';
     }
-    cout << endl;
+    std::cout << '\n';
 
-    // ========== 方式三：范围 for 循环（C++11，最推荐） ==========
-    cout << "方式三（范围 for）：";
-    for (int val : v) {       // 拷贝遍历
-        cout << val << " ";
+    // ========== 方式三：范围 for（最推荐） ==========
+    std::cout << "方式三（范围 for）：";
+    for (const int val : v) {
+        std::cout << val << ' ';
     }
-    cout << endl;
+    std::cout << '\n';
 
     // 如果需要修改元素，用引用：
     // for (int& val : v) { val *= 2; }
 
-    // ========== 方式四：下标遍历 ==========
-    cout << "方式四（下标）：";
-    for (size_t i = 0; i < v.size(); ++i) {
-        cout << v[i] << " ";
-    }
-    cout << endl;
-
-    // ========== 方式五：STL 算法 for_each ==========
-    cout << "方式五（for_each）：";
-    for_each(v.begin(), v.end(), printElement);
-    cout << endl;
-
-    // 也可以用 lambda 表达式代替回调函数（C++11）：
-    cout << "方式五（for_each + lambda）：";
-    for_each(v.begin(), v.end(), [](int val) {
-        cout << val << " ";
+    // ========== 方式四：std::for_each ==========
+    std::cout << "方式四（std::for_each）：";
+    std::for_each(v.begin(), v.end(), [](int val) {
+        std::cout << val << ' ';
     });
-    cout << endl;
+    std::cout << '\n';
+
+    // ========== 方式五：std::ranges::for_each（C++20） ==========
+    std::cout << "方式五（ranges::for_each）：";
+    std::ranges::for_each(v, [](int val) {
+        std::cout << val << ' ';
+    });
+    std::cout << '\n';
 
     return 0;
 }
@@ -230,12 +235,11 @@ int main() {
 **输出：**
 
 ```
-方式一（迭代器）：10 20 30 40 50
+方式一（下标）：10 20 30 40 50
 方式二（auto 迭代器）：10 20 30 40 50
 方式三（范围 for）：10 20 30 40 50
-方式四（下标）：10 20 30 40 50
-方式五（for_each）：10 20 30 40 50
-方式五（for_each + lambda）：10 20 30 40 50
+方式四（std::for_each）：10 20 30 40 50
+方式五（ranges::for_each）：10 20 30 40 50
 ```
 
 ### 2.4 迭代器详解：begin(), end(), rbegin(), rend()
@@ -363,6 +367,13 @@ int main() {
 >
 > - `v.at(i)`：检查越界，越界时抛出 `std::out_of_range` 异常
 
+#### 2.5.1 高频易错点（建议先掌握）
+
+- `reserve(n)` 只扩容量，不会产生 `n` 个元素；访问 `v[n - 1]` 依然可能越界。
+- `resize(n)` 会真正改变元素个数，新增元素会被值初始化。
+- 在 `for` 循环里 `erase` 元素时，不要直接 `++it`，要使用 `it = v.erase(it)`。
+- 若后续还要继续插入，先 `reserve` 可以显著减少“扩容导致迭代器失效”问题。
+
 ---
 
 ## 三、vector 存放自定义数据类型
@@ -425,64 +436,44 @@ int main() {
 
 ### 3.2 存放对象指针
 
-当对象很大时，存放指针可以避免大量拷贝：
+当对象很大、需要多态或希望稳定地址时，存放指针更合适。现代 C++ 中优先使用智能指针。
 
 ```cpp
 #include <iostream>
 #include <vector>
 #include <string>
 #include <memory>  // 智能指针
-using namespace std;
 
 class Person {
 public:
-    string name;
+    std::string name;
     int age;
 
-    Person(const string& name, int age) : name(name), age(age) {}
+    Person(const std::string& name, int age) : name(name), age(age) {}
 
-    friend ostream& operator<<(ostream& os, const Person& p) {
+    friend std::ostream& operator<<(std::ostream& os, const Person& p) {
         os << "{" << p.name << ", " << p.age << "}";
         return os;
     }
 };
 
 int main() {
-    // ========== 方式一：裸指针（不推荐，需要手动管理内存） ==========
-    cout << "=== 裸指针 ===" << endl;
-    {
-        vector<Person*> v;
-
-        v.push_back(new Person("张三", 25));
-        v.push_back(new Person("李四", 30));
-        v.push_back(new Person("王五", 28));
-
-        for (const auto* p : v) {
-            cout << *p << endl;  // 注意：需要解引用
-        }
-
-        // 务必手动释放内存！
-        for (auto* p : v) {
-            delete p;
-        }
-        v.clear();
+    // ========== 推荐：unique_ptr（唯一所有权） ==========
+    std::cout << "=== unique_ptr ===\n";
+    std::vector<std::unique_ptr<Person>> v1;
+    v1.push_back(std::make_unique<Person>("赵六", 35));
+    v1.push_back(std::make_unique<Person>("钱七", 22));
+    for (const auto& p : v1) {
+        std::cout << *p << '\n';
     }
 
-    // ========== 方式二：智能指针（推荐，自动管理内存） ==========
-    cout << "\n=== 智能指针 ===" << endl;
-    {
-        vector<unique_ptr<Person>> v;
-
-        v.push_back(make_unique<Person>("赵六", 35));
-        v.push_back(make_unique<Person>("钱七", 22));
-        v.push_back(make_unique<Person>("孙八", 40));
-
-        for (const auto& p : v) {
-            cout << *p << endl;
-        }
-
-        // 不需要手动释放！unique_ptr 自动管理生命周期
-    }
+    // ========== 需要共享所有权时：shared_ptr ==========
+    std::cout << "\n=== shared_ptr ===\n";
+    std::vector<std::shared_ptr<Person>> v2;
+    auto p = std::make_shared<Person>("孙八", 40);
+    v2.push_back(p);
+    v2.push_back(p); // 两个位置共享同一对象
+    std::cout << "use_count = " << p.use_count() << '\n';
 
     return 0;
 }
@@ -491,16 +482,15 @@ int main() {
 **输出：**
 
 ```
-=== 裸指针 ===
-{张三, 25}
-{李四, 30}
-{王五, 28}
-
-=== 智能指针 ===
+=== unique_ptr ===
 {赵六, 35}
 {钱七, 22}
-{孙八, 40}
+
+=== shared_ptr ===
+use_count = 3
 ```
+
+> ⚠️ 除非是与旧接口兼容，否则尽量避免在示例中直接写 `new`/`delete`。
 
 > 💡 **存对象 vs 存指针，如何选择？**
 >

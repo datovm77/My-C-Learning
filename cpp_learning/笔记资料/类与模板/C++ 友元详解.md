@@ -250,15 +250,15 @@ public:
     GoodFriend();
     
     void visit();      // 普通成员函数，不能访问 Building 私有成员
-    void破门而入();    // 友元成员函数，可以访问 Building 私有成员
+    void breakIn();    // 友元成员函数，可以访问 Building 私有成员
 
 private:
     Building* building;
 };
 
 class Building {
-    // 只让 GoodFriend 的 破门而入() 函数做友元
-    friend void GoodFriend::破门而入();
+    // 只让 GoodFriend 的 breakIn() 函数做友元
+    friend void GoodFriend::breakIn();
 
 public:
     Building();
@@ -286,15 +286,15 @@ void GoodFriend::visit() {
 }
 
 // 友元成员函数
-void GoodFriend::破门而入() {
-    cout << "破门而入() 函数访问: " << building->livingRoom << endl;
-    cout << "破门而入() 函数访问: " << building->bedRoom << endl;  // 可以访问！
+void GoodFriend::breakIn() {
+    cout << "breakIn() 函数访问: " << building->livingRoom << endl;
+    cout << "breakIn() 函数访问: " << building->bedRoom << endl;  // 可以访问！
 }
 
 int main() {
     GoodFriend friend1;
     friend1.visit();
-    friend1.破门而入();
+    friend1.breakIn();
     return 0;
 }
 ```
@@ -303,8 +303,8 @@ int main() {
 
 ```
 visit() 函数访问: 客厅
-破门而入() 函数访问: 客厅
-破门而入() 函数访问: 卧室
+breakIn() 函数访问: 客厅
+breakIn() 函数访问: 卧室
 ```
 
 ### 实现注意事项
@@ -317,13 +317,13 @@ class Building;           // 1. 前向声明 Building
 
 class GoodFriend {        // 2. 完整定义 GoodFriend 类
 public:
-    void 破门而入();
+    void breakIn();
 private:
     Building* building;
 };
 
 class Building {          // 3. 完整定义 Building 类
-    friend void GoodFriend::破门而入();  // 声明友元
+    friend void GoodFriend::breakIn();  // 声明友元
 public:
     string livingRoom;
 private:
@@ -331,7 +331,7 @@ private:
 };
 
 // 4. 在 Building 定义之后实现 GoodFriend 的成员函数
-void GoodFriend::破门而入() {
+void GoodFriend::breakIn() {
     // 实现代码
 }
 ```
