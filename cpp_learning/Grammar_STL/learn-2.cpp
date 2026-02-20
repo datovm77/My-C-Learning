@@ -1,25 +1,52 @@
 #include <iostream>
+#include <format>
+#include <string>
+#include <vector>
+#include <algorithm>
+// vector algorithm
 
-int main() {
-    int count = 0;
+class Person
+{
+public:
+    Person(const int &age, const std::string &name) : m_age(age), m_name(name) {}
+    friend void test01();
 
-    // 值捕获：Lambda 内部是 count 的副本，修改不影响外部
-    auto byValue = [count]() mutable {
-        count++;                          // mutable 才能修改副本
-        std::cout << "内部: " << count << std::endl;
-    };
+private:
+    int m_age;
+    std::string m_name;
+};
 
-    // 引用捕获：直接修改外部 count
-    auto byRef = [&count]() {
-        count++;
-        std::cout << "内部: " << count << std::endl;
-    };
+void test01()
+{
+    Person p1(13, "s");
+    Person p2(15, "a");
+    Person p3(14, "d");
+    Person p4(17, "v");
+    std::vector<Person> v = {p1, p2, p3, p4};
 
-    byValue(); // 内部: 1
-    std::cout << "外部 count: " << count << std::endl; // 外部 count: 0 ← 未改变！
+    std::cout << "-------第一种--------" << std::endl;
+    for (std::vector<Person>::iterator it = v.begin(); it != v.end(); it++)
+    {
+        std::cout << std::format("姓名是：{}，年龄是{}", it->m_name, it->m_age) << std::endl;
+    }
+    std::cout << "-------第二种--------" << std::endl;
+    for (auto it = v.begin(); it != v.end(); it++)
+    {
+        std::cout << std::format("姓名是：{}，年龄是{}", (*it).m_name, (*it).m_age) << std::endl;
+    }
+    std::cout << "-------第三种--------" << std::endl;
+    for (const Person &p : v)
+    {
+        std::cout << std::format("姓名是：{}，年龄是{}", p.m_name, p.m_age) << std::endl;
+    }
+    std::cout << "-------第四种--------" << std::endl;
+    std::for_each(v.begin(), v.end(), [](Person p)
+    { std::cout << std::format("姓名是：{}，年龄是：{}", p.m_name, p.m_age) << std::endl; });
+}
 
-    byRef();   // 内部: 1
-    std::cout << "外部 count: " << count << std::endl; // 外部 count: 1 ← 已改变！
+int main()
+{
+    test01();
 
     return 0;
 }

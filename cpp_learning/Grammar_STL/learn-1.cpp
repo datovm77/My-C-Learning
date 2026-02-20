@@ -71,8 +71,8 @@ int main()
 
     test01();
 
-    std::cout << "\n--- Lambda 方式 ---" << std::endl;
-    test02();
+    // std::cout << "\n--- Lambda 方式 ---" << std::endl;
+    // test02();
 
     return 0;
 }
