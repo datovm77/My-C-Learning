@@ -5,7 +5,8 @@
 class Solution {
 public:
     std::string reverseWords(std::string s) {
-        // 第1步：原地去除多余空格（快慢指针）
+        // 第1步：原地去除多余空格（快慢指针）、
+        //std::string str = "  a good   example  ";
         int slow = 0;
         int n = static_cast<int>(s.size());
         for (int fast = 0; fast < n; ++fast) {
@@ -27,8 +28,8 @@ public:
 
         // 第3步：逐个单词内部反转
         int start = 0;
-        for (int i = 0; i <= static_cast<int>(s.size()); ++i) {
-            if (i == static_cast<int>(s.size()) || s[i] == ' ') {
+        for (int i = 0; i <= s.size(); ++i) {
+            if (i == s.size() || s[i] == ' ') {
                 std::reverse(s.begin() + start, s.begin() + i);
                 start = i + 1;
             }
