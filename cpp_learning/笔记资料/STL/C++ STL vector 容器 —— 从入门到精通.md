@@ -420,6 +420,9 @@ auto it = v.insert(v.begin() + 1, 100);
 // v = {1, 100, 2, 3}
 // it 指向新插入的 100
 
+*it = 200;           // 修改刚插入的元素
+v.erase(it + 1);     // 删除它后面的元素
+
 // 在开头插入 3 个 0
 v.insert(v.begin(), 3, 0);
 // v = {0, 0, 0, 1, 100, 2, 3}
@@ -503,7 +506,7 @@ v.erase(std::remove(v.begin(), v.end(), 2), v.end());
 std::erase(v, 2);  // 等价于上面的 erase-remove
 
 // 删除所有偶数（C++20）
-std::erase_if(v, [](<int x>) { return x % 2 == 0; });
+std::erase_if(v, [](int x) { return x % 2 == 0; });
 ```
 
 **`std::remove` 的工作原理**：
