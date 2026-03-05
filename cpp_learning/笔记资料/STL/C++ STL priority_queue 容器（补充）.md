@@ -317,7 +317,7 @@ int main() {
              << "  (size = " << pq.size() << ")" << endl;
         pq.pop();   // 移除堆顶
     }
-
+	
     cout << endl;
     cout << "全部 pop 后，empty() = "
          << (pq.empty() ? "true" : "false") << endl;
@@ -897,16 +897,16 @@ int main() {
 ├─────────────────────────────────────────────────────────────────┤
 │  头文件：  #include <queue>                                      │
 │  本质：    容器适配器，底层默认 vector + 二叉堆                      │
-│  默认：    大顶堆（less<T>），top() 返回最大值                       │
-│                                                                  │
+│  默认：    大顶堆（less<T>），top() 返回最大值                      │
+│                                                                 │
 │  ┌────────────────────────────────────────────────────────────┐ │
-│  │ 大顶堆：priority_queue<int> pq;                            │ │
-│  │ 小顶堆：priority_queue<int, vector<int>, greater<int>> pq; │ │
+│  │ 大顶堆：priority_queue<int> pq;                             │ │
+│  │ 小顶堆：priority_queue<int, vector<int>, greater<int>> pq;  │ │
 │  └────────────────────────────────────────────────────────────┘ │
-│                                                                  │
+│                                                                 │
 │  常用接口：                                                       │
 │    pq.push(x)    插入元素          O(log n)                      │
-│    pq.emplace(x) 原地构造插入      O(log n)                      │
+│    pq.emplace(x) 原地构造插入      O(log n)                       │
 │    pq.pop()      移除堆顶          O(log n)                      │
 │    pq.top()      访问堆顶          O(1)                          │
 │    pq.size()     元素个数          O(1)                          │
