@@ -193,11 +193,9 @@ forward_list: [10] → [20] → [30] → nullptr
 
 迭代器位置：
 
-  before_begin()    begin()
-       ↓               ↓
-  [哨兵位] → [10] → [20] → [30] → nullptr
-                                      ↑
-                                    end()
+ before_begin()    begin()                     end()
+        ↓             ↓                          ↓
+    [ 哨兵位 ]   →   [ 10 ]   →   [ 20 ]   →   [ 30 ]   →   nullptr
 ```
 
 - `before_begin()` 返回一个指向**第一个元素之前**的迭代器
