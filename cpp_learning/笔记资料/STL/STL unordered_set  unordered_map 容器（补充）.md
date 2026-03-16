@@ -243,7 +243,7 @@ int main() {
     
     auto [it1, success1] = us.insert(10);   // C++17 结构化绑定
     cout << *it1 << ", 插入成功: " << boolalpha << success1 << endl;
-    // 输出：10, 插入成功: true
+    // 输出：10, 插入成功: true（boolalpha令“1”变为true）
     
     auto [it2, success2] = us.insert(10);   // 再次插入 10
     cout << *it2 << ", 插入成功: " << boolalpha << success2 << endl;
@@ -602,7 +602,7 @@ std::unordered_map<std::string, int> ages = {
 桶的示意图：
 ┌─────┬──────────────────────────┬─────┬──────────┐
 │  0  │           1              │  2  │    3     │
-│     │ {"Alice",25}→{"Eve",22} │     │ {"Bob",30}│
+│     │ {"Alice",25}→{"Eve",22}  │     │{"Bob",30}│
 └─────┴──────────────────────────┴─────┴──────────┘
 ```
 

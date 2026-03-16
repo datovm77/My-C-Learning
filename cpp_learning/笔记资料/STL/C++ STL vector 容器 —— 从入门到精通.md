@@ -24,6 +24,11 @@
 
 ## 二、构造函数（创建 vector 的多种方式）
 
+> **阅读约定（给初学者）**：本文有两类代码示例——
+>
+> - **完整可运行示例**：包含 `#include` 与 `main()`，可直接编译运行；
+> - **API 片段示例**：为突出语法而省略了部分上下文（如头文件、`main()`）。练习时请补齐最少头文件，例如 `#include <vector>`、`#include <iostream>`、`#include <algorithm>`。
+
 ### 2.1 默认构造 —— 空容器
 
 ```
@@ -357,7 +362,7 @@ cout << "size: " << v.size() << endl;          // 10
 cout << "capacity: " << v.capacity() << endl;  // 1000（还占着大内存！）
 
 v.shrink_to_fit();
-cout << "capacity: " << v.capacity() << endl;  // 10（内存释放了）
+cout << "capacity: " << v.capacity() << endl;  // 通常会接近 10（实现可选择忽略请求）
 ```
 
 > ⚠️ `shrink_to_fit()` 是一个**非绑定请求**（non-binding request），标准允许实现忽略它。但主流编译器通常会响应。
@@ -422,19 +427,20 @@ auto it = v.insert(v.begin() + 1, 100);
 
 *it = 200;           // 修改刚插入的元素
 v.erase(it + 1);     // 删除它后面的元素
+// v = {1, 200, 3}
 
 // 在开头插入 3 个 0
 v.insert(v.begin(), 3, 0);
-// v = {0, 0, 0, 1, 100, 2, 3}
+// v = {0, 0, 0, 1, 200, 3}
 
 // 插入另一个容器的范围
 vector<int> extra = {88, 99};
 v.insert(v.end(), extra.begin(), extra.end());
-// v = {0, 0, 0, 1, 100, 2, 3, 88, 99}
+// v = {0, 0, 0, 1, 200, 3, 88, 99}
 
 // 插入初始化列表（C++11）
 v.insert(v.begin() + 2, {11, 22});
-// v = {0, 0, 11, 22, 0, 1, 100, 2, 3, 88, 99}
+// v = {0, 0, 11, 22, 0, 1, 200, 3, 88, 99}
 ```
 
 > ⚠️ **性能警告**：在 vector 的**头部或中间**插入元素需要移动后面所有元素，时间复杂度 **O(n)**。如果需要频繁在头部插入，考虑使用 `deque`。
@@ -942,7 +948,7 @@ auto val = vb[0];  // val 的类型不是 bool，而是 vector<bool>::reference
 bool* p = &vb[0];  // ❌ 编译错误！不能取地址
 ```
 
-> **建议**：如果你不需要 bit 压缩，用 `vector<char>` 或 `std::deque<bool>` 代替 `vector<bool>`。如果确实需要按位存储，使用 `std::bitset`。
+> **建议**：如果你不需要 bit 压缩，可用 `vector<unsigned char>`（或 `vector<std::uint8_t>`）代替 `vector<bool>`。如果确实需要按位存储，使用 `std::bitset`（编译期固定大小）或专门的动态位图结构。
 
 ---
 
@@ -971,6 +977,7 @@ for (const auto& row : matrix) {
 
 ```
 #include <algorithm>
+#include <cstdlib>
 
 vector<int> v = {5, 2, 8, 1, 9, 3};
 
@@ -984,7 +991,7 @@ sort(v.begin(), v.end(), greater<int>());
 
 // 自定义排序
 sort(v.begin(), v.end(), [](int a, int b) {
-    return abs(a - 5) < abs(b - 5);  // 按与 5 的距离排序
+    return std::abs(a - 5) < std::abs(b - 5);  // 按与 5 的距离排序
 });
 ```
 
@@ -1022,17 +1029,19 @@ cout << *lb << endl;  // 30
 ### 11.5 作为函数参数
 
 ```
+// 以下写法均可直接编译，重点是参数形式的差异
+
 // ❌ 值传递：拷贝整个 vector，开销大
-void func1(vector<int> v) { ... }
+void func1(vector<int> v) {}
 
 // ✅ 常引用：只读，不拷贝
-void func2(const vector<int>& v) { ... }
+void func2(const vector<int>& v) {}
 
 // ✅ 引用：可修改，不拷贝
-void func3(vector<int>& v) { ... }
+void func3(vector<int>& v) {}
 
 // ✅ 移动语义：转移所有权
-void func4(vector<int>&& v) { ... }
+void func4(vector<int>&& v) {}
 ```
 
 > **黄金法则**：只读传 `const vector<T>&`，需修改传 `vector<T>&`，不需要原来的了用 `std::move`。
