@@ -1310,6 +1310,160 @@ for (const auto& [key, val] : m) {
 
 ---
 
+## 第十章：unordered_map 简介与实战
+
+虽然 `map` 极其强大，但它底层使用了**红黑树**，这意味着每次插入、查找的时间复杂度都是 $O(\log N)$。当我们需要处理海量数据，且完全**不需要关心键的顺序**时，`map` 这份排序的开销就显得没必要了。
+
+这时候，`unordered_map` 闪亮登场！
+
+### 10.1 什么是 unordered_map？
+
+`unordered_map` 翻译为“无序映射”，它的底层是通过**哈希表（Hash Table）**实现的。
+
+> 💡 **核心重点：** `unordered_map` 的用法（包括 `insert`、`operator[]`、`find`、`count`、`size` 等等）与 `map` **几乎完全一样**！唯一的区别就是你遍历它的时候，元素是乱序的（哈希桶顺序）。
+
+| 特性 | `map` | `unordered_map` |
+| --- | --- | --- |
+| **底层结构** | 红黑树 | 哈希表 |
+| **排序** | ✅ 按 key 自动排序 | ❌ 完全无序 |
+| **时间复杂度** | 插入/查找/删除 $O(\log N)$ | 平均 $O(1)$，最坏 $O(N)$ |
+| **头文件** | `<map>` | `<unordered_map>` |
+| **适用场景** | 需要数据的有序性（如范围查找） | 只需要最高效的单点查找和统计 |
+
+> **提示：** 除非题目或业务明确要求保证数据有序，否则在只需要进行简单的 Key-Value 映射和统计时，优先选用 `unordered_map`。
+
+### 10.2 实战演练一：LeetCode 1. 两数之和
+
+这是在算法面试中最经典的一道题，也是体会 `unordered_map`“空间换时间”思想的最佳案例。
+
+**题目背景：**
+给定一个整数集合 `nums` 和一个目标值 `target`，请你在该集合中找出**和为目标值**的那两个整数，并返回它们的数组下标。（你可以假设每种输入只会对应一个答案，且同样的元素不能被重复利用。）
+
+**分析：**
+- 暴力解法：两层 `for` 循环嵌套，时间复杂度 $O(N^2)$。慢！
+- 我们要找某个数 `x`，它满足 `x = target - nums[i]`。
+- 如果我们把遍历过的数字及其下标存起来，每次只要“回头看一眼”字典里有没有刚好等于 `x` 的数字就可以了。
+- 这个快速查询的需求，完美契合 `unordered_map`。
+
+```cpp name=learn-40_two_sum.cpp
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+using namespace std;
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        // 哈希表：
+        // key：数组中的数值（我们需要根据数值来查找它是否存在）
+        // value：该数值在数组中的下标
+        unordered_map<int, int> m;
+
+        // 一遍边遍历，边保存字典
+        for (int i = 0; i < nums.size(); ++i) {
+            // 我们当前遇到 nums[i]，想找与之配对的 target - nums[i] 是否已经在字典中
+            auto it = m.find(target - nums[i]);
+            
+            // 如果找到了
+            if (it != m.end()) {
+                // it->second 是配对数字的下标，i 是当前的下标
+                return {it->second, i};
+            }
+            
+            // 如果没找到，就把当前数字及下标“登记”到字典中，给后面的人用
+            m.emplace(nums[i], i);
+        }
+        return {}; // 找不到的情况（题目保证了必有解，这里为了编译不出错）
+    }
+};
+```
+
+**为什么这道题它是神作？**
+由于 `unordered_map` 查找平均只需 $O(1)$，我们只需**一次遍历**即可找到答案。这直接把时间复杂度从 $O(N^2)$ 降维打击到了 **$O(N)$**！
+
+---
+
+### 10.3 实战演练二：P1918 保龄球
+
+我们再来看一道进阶版的工程类/竞赛类输入输出场景题目。当你需要**应对海量数据查询**时，`unordered_map` 是保命神技。
+
+**题目背景：**
+有 $n$ 个保龄球摆成一排，每个保龄球上都有一个数字标识（数字可能极大）。现在有 $q$ 次询问，每次询问一个数字求它所在的位置（从 1 开始算），如果不存在输出 0。
+
+**分析：**
+1. 试想如果 $n=100000$，$q=100000$，每次都在数组里从头找，$O(N \cdot Q)$ 绝对超时(TLE)。
+2. 我们需要预先建立一张快查表：`数字标识 -> 位置`。
+3. 同样，我们**毫不犹豫使用 `unordered_map`**。
+
+下面是规范的解题写法和讲解：
+
+```cpp name=learn-41.cpp
+#include <iostream>
+#include <unordered_map>
+
+void test01()
+{
+    // 如果想要在算法竞赛进一步提速，可以加上面两句:
+    // std::ios::sync_with_stdio(false);
+    // std::cin.tie(nullptr);
+
+    int n;
+    std::cin >> n;
+    
+    // 构造哈希表
+    // key：保龄球上面的数字
+    std::unordered_map<int, int> m;
+    
+    // 第一步：录入所有保龄球数据
+    for (int i = 0; i < n; i++)
+    {
+        int temp;
+        std::cin >> temp;
+        
+        // 由于题目要求输出的位置从 1 开始算，所以 value 是 i + 1。
+        // 使用 emplace 避免额外开销
+        m.emplace(temp, i + 1);
+    }
+    
+    int times; // 询问次数
+    std::cin >> times;
+    
+    // 第二步：处理所有的狂风暴雨般的询问
+    for (int i = 0; i < times; ++i)
+    {
+        int target;
+        std::cin >> target;
+        
+        // 极速查找，平均时间复杂度 O(1)
+        auto it = m.find(target);
+        
+        if (it != m.end())
+        {
+            // 找到了，it->first 是数字，it->second 就是位置
+            std::cout << it->second << '\n';
+        }
+        else
+        {
+            // find 到底了没找到，说明没这个球，按要求输出 0
+            std::cout << '0' << '\n';
+        }
+    }
+}
+
+int main()
+{
+    test01();
+    return 0;
+}
+```
+
+> **小结：**
+> - 「两数之和」 教会了我们如何利用 `unordered_map` “边遍历边记录，避免回头路”。
+> - 「保龄球问题」教会了我们面对海量查询如何 “一次建库，万次秒查”。
+> 这两大法宝，是处理所有以查找为核心诉求的题目的必杀技！
+
+---
+
 ## 附录 A：map 常用操作速查表
 
 | 分类     | 操作         | 代码                              | 时间复杂度 |
@@ -1372,3 +1526,4 @@ for (const auto& [key, val] : m) {
 > 10. C++17 的结构化绑定、`insert_or_assign`、`try_emplace`
 > 11. `lower_bound` / `upper_bound` 范围查找
 > 12. multimap 与 map 的区别
+> 13. `unordered_map` 的原理与实战场景应用

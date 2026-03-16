@@ -1,7 +1,7 @@
 #include <iostream>
 #include <unordered_map>
 #include <string>
-//P1918 保龄球  
+//P1918 保龄球
 void test01()
 {
     int n;
@@ -19,9 +19,12 @@ void test01()
     {
         int temp1;
         std::cin >> temp1;
-        if (m.find(temp1) != m.end())
-            std::cout << m.at(temp1) << '\n';
-        else std::cout<<'0'<<'\n';
+        auto it = m.find(temp1);
+        if (it != m.end())
+            std::cout << it->second << '\n';
+        else
+            std::cout << '0' << '\n';
+
     }
 }
 
