@@ -220,6 +220,11 @@ x, y = map(int, input("输入两个整数：").split())
 print(f"两数之和：{x + y}")
 ```
 
+> **补充说明**：
+> 1. `input().split()` 默认按任意空白字符分割，连续多个空格也能正确处理。
+> 2. 若输入的字段数量和左侧变量数量不一致（如只输入一个值，或输入了三个值），会抛出 `ValueError`。
+> 3. 面向真实用户输入时，通常应配合 `try/except` 做合法性校验。
+
 ### ✅ 小练习（含答案）
 
 **题目**：读入用户输入的一行 `a b`（两个整数），输出它们的乘积；如果输入不合法，输出“输入错误”。
@@ -268,13 +273,13 @@ x = 42  # 行尾注释：给变量赋值
 >
 > ```python
 > def add(a, b):
->  """返回两个数的和。
+>     """返回两个数的和。
 > 
->  参数:
->      a: 第一个数
->      b: 第二个数
->  """
->  return a + b
+>     参数:
+>         a: 第一个数
+>         b: 第二个数
+>     """
+>     return a + b
 > 
 > print(add.__doc__)
 > help(add)
@@ -603,9 +608,31 @@ if lst:           # 等价于 if len(lst) > 0:
     print("列表不为空")
 
 name = ""
-if not name:      # 等价于 if name == "":
+if not name:      # 此处 name 是字符串时，表示“空字符串”
     print("名字为空")
 ```
+
+### `None` 与真值判断
+
+`None` 表示“没有值”或“尚未设置”，它的类型是 `NoneType`。在 Python 中，`None` 既非常常见，也很容易和 `0`、`""`、`False` 混淆。
+
+```python
+value = None
+
+print(value is None)   # True
+print(bool(value))     # False
+
+result = 0
+if not result:
+    print("result 在布尔上下文中是假值")
+
+# 但“假值”不等于“None”
+print(result is None)  # False
+```
+
+> **教学建议**：
+> - 只要是判断“是否没有值”，优先写 `is None` / `is not None`。
+> - 只要是判断“是否为空、是否为 0、是否为空容器”，才使用 `if not x` 这类真值判断。
 
 ---
 
@@ -630,6 +657,58 @@ d = Dog()
 print(type(d) == Animal)        # False（严格匹配类型）
 print(isinstance(d, Animal))    # True（Dog 是 Animal 的子类）
 ```
+
+---
+
+## 2.6 可变对象与不可变对象（重要补充）
+
+这是 Python 初学者最容易“代码能写、概念没吃透”的主题之一。很多看似奇怪的问题，比如“函数默认参数为什么会串数据”“为什么改列表会影响别处”，本质上都和**对象是否可变**有关。
+
+### 常见可变类型与不可变类型
+
+```python
+# 常见不可变类型
+immutable_examples = (
+    42,          # int
+    3.14,        # float
+    "hello",     # str
+    (1, 2, 3),   # tuple
+    True,        # bool
+    None,        # NoneType
+)
+
+# 常见可变类型
+mutable_examples = [
+    [1, 2, 3],           # list
+    {"name": "张三"},    # dict
+    {1, 2, 3},           # set
+]
+```
+
+### 修改对象 vs 重新绑定变量
+
+```python
+# 重新绑定：变量指向了新对象
+x = 10
+print(id(x))
+x = x + 1
+print(id(x))     # 变了，因为 int 不可变
+
+# 原地修改：对象本身被改了
+lst = [1, 2]
+alias = lst
+lst.append(3)
+
+print(lst)       # [1, 2, 3]
+print(alias)     # [1, 2, 3] —— alias 也“看到”了变化
+print(lst is alias)   # True
+```
+
+> **记忆方法**：
+> - 不可变对象：改不了，只能“创建新对象再让变量指向它”。
+> - 可变对象：对象本身能被原地修改，因此多个变量若引用同一对象，可能互相影响。
+>
+> 这也是为什么教程前面一再强调“不要把可变对象写成默认参数”。
 
 ---
 
@@ -772,6 +851,8 @@ print(grade)  # B
 
 这是 Python 3.10 引入的新特性，类似其他语言的 `switch/case`，但功能**强大得多**。
 
+> **版本提醒**：如果你所在的教学机房、服务器或科研环境仍在使用 Python 3.9 及以下版本，这一节的代码将无法运行。
+
 ```python
 # 基本用法
 command = "start"
@@ -828,7 +909,13 @@ def process(value):
             print(f"字符串：{s}")
         case list(items):
             print(f"列表，长度 {len(items)}")
+        case _:
+            print("暂不支持的类型")
 ```
+
+> **使用建议**：
+> - 当分支是“按值匹配”或“按结构拆解”时，`match/case` 往往比一串 `if/elif` 更清晰。
+> - 如果只是做简单区间判断（如成绩分档），`if/elif` 通常仍然更直接。
 
 ### ✅ 小练习（含答案）
 
@@ -1252,16 +1339,79 @@ transposed = [[row[i] for row in matrix] for i in range(3)]
 # [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
 ```
 
+#### Python 列表之列表推导式
+
+当列表里的元素本身还是列表时，我们通常把它看成"二维列表"或"嵌套列表"。这时列表推导式依然非常好用，只是要特别注意 `for` 的顺序。
+
+```python
+# 1）生成二维列表：3 行 4 列
+grid = [[0 for _ in range(4)] for _ in range(3)]
+print(grid)
+# [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+
+# 2）对二维列表中的每个元素做变换
+matrix = [[1, 2, 3], [4, 5, 6]]
+doubled = [[x * 2 for x in row] for row in matrix]
+print(doubled)
+# [[2, 4, 6], [8, 10, 12]]
+
+# 3）展平二维列表：把多行合并成一行
+matrix = [[1, 2], [3, 4], [5, 6]]
+flat = [x for row in matrix for x in row]
+print(flat)
+# [1, 2, 3, 4, 5, 6]
+
+# 它等价于下面的普通写法：
+flat2 = []
+for row in matrix:
+    for x in row:
+        flat2.append(x)
+
+# 4）展平时顺便过滤
+matrix = [[1, -2, 3], [-4, 5], [0, 6]]
+positives = [x for row in matrix for x in row if x > 0]
+print(positives)
+# [1, 3, 5, 6]
+
+# 5）保留二维结构，只筛选每一行中符合条件的元素
+matrix = [[1, 2, 3, 4], [5, 6], [7, 8, 9]]
+evens_by_row = [[x for x in row if x % 2 == 0] for row in matrix]
+print(evens_by_row)
+# [[2, 4], [6], [8]]
+```
+
+> **记忆顺序**：`[x for row in matrix for x in row]` 可以读成"先拿到每一行 `row`，再从这一行里取每个元素 `x`"。
+
+#### 二维列表初始化的常见坑
+
+下面这两种写法看起来很像，但含义完全不同：
+
+```python
+# ❌ 不推荐：3 行其实引用的是同一个列表对象
+bad = [[0] * 4] * 3
+bad[0][1] = 99
+print(bad)
+# [[0, 99, 0, 0], [0, 99, 0, 0], [0, 99, 0, 0]]
+
+# ✅ 推荐：每一行都是独立的新列表
+good = [[0] * 4 for _ in range(3)]
+good[0][1] = 99
+print(good)
+# [[0, 99, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+```
+
+> **原因**：`[[0] * 4] * 3` 是把同一个内部列表重复引用了 3 次；而 `for` 推导式会在每次循环时重新创建一行。
+
 ### ✅ 小练习（含答案）
 
-**题目**：把列表 `nums=[1,2,3,4,5,6]` 中的偶数筛出来并平方。
+**题目**：把二维列表 `matrix=[[1,2,3],[4,5,6],[7,8,9]]` 展平成一维列表，并且只保留偶数。
 
 **参考答案**：
 
 ```python
-nums = [1, 2, 3, 4, 5, 6]
-result = [x * x for x in nums if x % 2 == 0]
-print(result)  # [4, 16, 36]
+matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+result = [x for row in matrix for x in row if x % 2 == 0]
+print(result)  # [2, 4, 6, 8]
 ```
 
 ---
@@ -1916,6 +2066,8 @@ def add(a: int, b: int) -> int:
 
 def average(values: Iterable[float]) -> float:
     values = list(values)
+    if not values:
+        raise ValueError("values 不能为空")
     return sum(values) / len(values)
 
 name: str = "张三"
@@ -1926,6 +2078,22 @@ print(average(scores))           # 89.0
 ```
 
 > **说明**：类型注解本身不会在运行时自动拦截错误（`add("1", 2)` 仍可能运行到出错处）；它主要服务于静态分析工具（如 Pylance、mypy）和团队协作。
+
+### 常见写法补充
+
+```python
+def greet(name: str | None = None) -> str:
+    if name is None:
+        return "Hello, World!"
+    return f"Hello, {name}!"
+
+def first(items: list[int]) -> int | None:
+    if items:
+        return items[0]
+    return None
+```
+
+> 在 Python 3.10+ 中，联合类型通常直接写成 `A | B`；旧版本也可写作 `Optional[str]` 或 `Union[int, None]`。
 
 ---
 
@@ -2027,7 +2195,7 @@ from pathlib import Path
 
 # 创建路径对象
 p = Path("./data") / "file.txt"    # 用 / 拼接路径
-print(p)                            # data/file.txt
+print(p)                            # data/file.txt（或在 Windows 上显示为 data\file.txt）
 
 # 常用属性
 print(p.name)        # file.txt（文件名）
@@ -2115,6 +2283,7 @@ with open("figure.png", "rb") as f:
 > 1. 文本文件默认优先使用 UTF-8。
 > 2. 二进制文件使用 `rb` / `wb`，不要混用文本模式。
 > 3. 若与 Excel、CSV、日志系统交互，先确认对方要求的编码与分隔符，再决定是否继续使用 UTF-8。
+> 4. 某些 Windows 下的 Excel 对 UTF-8 CSV 兼容性一般，必要时可单独评估 `utf-8-sig`，但教学示例默认仍以 UTF-8 为主。
 
 ---
 
@@ -2191,6 +2360,10 @@ except Exception as e:
     # 捕获到异常：ZeroDivisionError: division by zero
 ```
 
+> **补充说明**：
+> - `except Exception:` 比“裸 `except:`”更安全，因为它不会吞掉 `KeyboardInterrupt`、`SystemExit` 等系统级异常。
+> - 教学代码中应尽量捕获“你预期会发生的异常”，不要无差别兜底。
+
 ---
 
 ## 8.3 主动抛出异常
@@ -2239,6 +2412,51 @@ except InsufficientBalanceError as e:
     print(e.balance)        # 100
     print(e.amount)         # 200
 ```
+
+---
+
+## 8.5 异常链、重新抛出与断言（重要补充）
+
+大型项目中，异常不只是“报错了就打印一下”，还承担着传递上下文、定位根因的职责。
+
+### 异常链：`raise ... from ...`
+
+```python
+def parse_age(text):
+    try:
+        return int(text)
+    except ValueError as e:
+        raise ValueError(f"无法把 {text!r} 解析为年龄") from e
+
+try:
+    parse_age("十八")
+except ValueError as e:
+    print(e)
+```
+
+> `from e` 的作用是保留原始异常链。调试时，你既能看到“表面错误”，也能看到“最初是哪里失败的”。
+
+### 重新抛出当前异常
+
+```python
+try:
+    1 / 0
+except ZeroDivisionError:
+    print("记录日志后继续向上抛出")
+    raise
+```
+
+### `assert` 适合检查“程序员假设”
+
+```python
+def divide(a, b):
+    assert b != 0, "b 不应为 0"
+    return a / b
+```
+
+> **注意**：
+> - `assert` 主要用于开发和调试阶段验证内部假设。
+> - 面向用户输入、文件内容、网络数据等外部不可信数据时，应优先使用 `if ...: raise ...` 做显式校验，而不是依赖 `assert`。
 
 ---
 
@@ -2969,20 +3187,51 @@ print(stu.average())     # 89.0
 
 ---
 
+## 11.6 封装与 `@property`（教学中常被遗漏）
+
+面向对象不只是“把函数写进类里”，还包括**封装**: 对外暴露稳定接口，对内约束数据合法性。`@property` 是 Python 中最常见也最实用的封装工具之一。
+
+```python
+class Student:
+    def __init__(self, name, score):
+        self.name = name
+        self.score = score    # 实际会走到下面的 setter
+
+    @property
+    def score(self):
+        return self._score
+
+    @score.setter
+    def score(self, value):
+        if not 0 <= value <= 100:
+            raise ValueError("score 必须在 0~100 之间")
+        self._score = value
+
+stu = Student("张三", 95)
+print(stu.score)      # 95
+
+stu.score = 88
+# stu.score = 120     # ❌ ValueError
+```
+
+> **为什么不直接公开属性？**
+> 因为一旦这个值需要校验、转换、延迟计算或兼容旧接口时，`@property` 可以在不改变调用方式（`obj.score`）的前提下平滑演进。
+
+---
+
 # 📋 全教程总结
 
-| 章节               | 核心要点                                                                                       |
-| ------------------ | ---------------------------------------------------------------------------------------------- |
-| **一、I/O与注释**  | `print()` 的 `sep/end` 参数；f-string **首选**；`input()` 返回 `str`                           |
-| **二、变量与类型** | 动态类型；`a,b = b,a` 交换；浮点精度问题；Falsy 值列表                                         |
-| **三、条件控制**   | 缩进即代码块；`is` 比身份、`==` 比值；`match/case` 模式匹配                                    |
-| **四、循环控制**   | `enumerate` + `zip` 是利器；`for...else` 表示"没 break"                                        |
-| **五、数据容器**   | list 可变、tuple 不可变、dict 有序键值对、set 去重；推导式                                     |
-| **六、函数**       | `*args/**kwargs`；默认参数勿用可变对象；LEGB 作用域；lambda                                    |
-| **七、文件操作**   | `with open() as f` 是标准写法；文本文件显式指定 `encoding="utf-8"`；`pathlib` 优先于 `os.path` |
-| **八、异常处理**   | `try/except/else/finally`；自定义异常继承 `Exception`                                          |
-| **九、高级特性**   | 生成器省内存；装饰器 = 函数套函数；上下文管理器                                                |
-| **十、模块与包**   | `__init__.py` 定义包；`if __name__ == "__main__"` 防误执行；掌握 venv + pip 基础流程           |
-| **十一、OOP**      | `__init__` + `self`；继承 + `super()`；魔法方法定制行为；`dataclass` 简化数据类                |
+| 章节               | 核心要点                                                                                          |
+| ------------------ | ------------------------------------------------------------------------------------------------- |
+| **一、I/O与注释**  | `print()` 的 `sep/end` 参数；f-string **首选**；`input()` 返回 `str`                              |
+| **二、变量与类型** | 动态类型；`a,b = b,a` 交换；浮点精度问题；Falsy 值列表；`None` 与真值判断；理解可变/不可变对象    |
+| **三、条件控制**   | 缩进即代码块；`is` 比身份、`==` 比值；`match/case` 模式匹配                                       |
+| **四、循环控制**   | `enumerate` + `zip` 是利器；`for...else` 表示"没 break"                                           |
+| **五、数据容器**   | list 可变、tuple 不可变、dict 有序键值对、set 去重；推导式                                        |
+| **六、函数**       | `*args/**kwargs`；默认参数勿用可变对象；LEGB 作用域；lambda                                       |
+| **七、文件操作**   | `with open() as f` 是标准写法；文本文件显式指定 `encoding="utf-8"`；`pathlib` 优先于 `os.path`    |
+| **八、异常处理**   | `try/except/else/finally`；自定义异常继承 `Exception`；会用异常链保留上下文                       |
+| **九、高级特性**   | 生成器省内存；装饰器 = 函数套函数；上下文管理器                                                   |
+| **十、模块与包**   | `__init__.py` 定义包；`if __name__ == "__main__"` 防误执行；掌握 venv + pip 基础流程              |
+| **十一、OOP**      | `__init__` + `self`；继承 + `super()`；魔法方法定制行为；`dataclass` 简化数据类；`@property` 封装 |
 
-以上就是本教程的完整内容。若你希望，我可以继续补一版“配套练习题（基础 / 提高 / 综合）”与“常见面试问答版”。
