@@ -1294,7 +1294,7 @@ print(original)                    # [3, 1, 4, 1, 5] 原列表不变
 
 # 按自定义规则排序
 words = ["banana", "apple", "cherry", "date"]
-words.sort(key=len)                # 按长度排序：['date', 'apple', 'banana', 'cherry']
+words.sort(key=len)              # 按长度排序：['date', 'apple', 'banana', 'cherry']
 words.sort(key=str.lower)          # 按小写字母排序
 
 # 反转
