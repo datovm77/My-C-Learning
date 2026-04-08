@@ -3,3 +3,21 @@
 *.obj
 .vscode/
 *.dSYM/
+
+# Linux / C++ build artifacts
+*.a
+*.so
+*.so.*
+*.out
+core
+gmon.out
+
+# Common CMake/Ninja build folders
+build/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+compile_commands.json
+
+# Generated binaries from lesson files like learn-63.cpp -> learn-63
+**/learn-[0-9]*
