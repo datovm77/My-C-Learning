@@ -1,6 +1,6 @@
 #include<iostream>
 using namespace std;
-
+#test
 class Stack {
 private:
     int* a;
