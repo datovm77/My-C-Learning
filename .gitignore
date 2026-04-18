@@ -21,3 +21,4 @@ compile_commands.json
 
 # Generated binaries from lesson files like learn-63.cpp -> learn-63
 **/learn-[0-9]*
+!**/learn-[0-9]*.cpp
