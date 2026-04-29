@@ -1,3 +1,4 @@
+// 练习string的find与rfind查找方法，知识点：find、rfind、string::npos
 #include<iostream>
 #include<string>
 using namespace std;

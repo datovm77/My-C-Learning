@@ -1,3 +1,4 @@
+// 练习NOIP P1055 ISBN号码校验（string版），知识点：string遍历、字符转数字、取模
 #include <iostream>
 // P1055 [NOIP 2008 普及组] ISBN 号码
 void test01()

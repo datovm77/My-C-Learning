@@ -1,3 +1,4 @@
+// 练习LeetCode 151 反转字符串中的单词（原地解法），知识点：快慢指针、原地修改、reverse
 #include <iostream>
 #include <string>
 #include <algorithm>

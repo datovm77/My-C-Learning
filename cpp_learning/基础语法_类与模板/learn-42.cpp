@@ -1,3 +1,4 @@
+// 练习类模板的基本定义与自动类型推导
 #include <iostream>
 #include <cstring>
 using namespace std;

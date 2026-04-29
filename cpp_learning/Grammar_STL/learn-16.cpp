@@ -1,4 +1,5 @@
-﻿#include <iostream>
+// 练习LeetCode 151 反转字符串中的单词（方法一），知识点：去空格、反转、单词分割
+#include <iostream>
 #include <string>
 #include <algorithm>
 // 151. 反转字符串中的单词
@@ -23,7 +24,7 @@ public:
             begin++;
         }
 
-        std::string s1 = s.substr(begin, end - begin + 1); // 第二个参数是“长度”
+        std::string s1 = s.substr(begin, end - begin + 1); // 第二个参数是"长度"
         //std::cout << s1 << std::endl;
         std::string str_result = "";
 

@@ -1,3 +1,4 @@
+// 练习引用、指针基础与宏定义，引用传参修改外部变量
 #include<iostream>
 
 #define LOG(x) std::cout << x << std::endl

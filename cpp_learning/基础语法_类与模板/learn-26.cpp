@@ -1,28 +1,55 @@
+// 练习友元类的声明与使用
 #include<iostream>
-#include<format>
-class BankAccount {
+#include<string>
+using namespace std;
+class Building;
+class goodGay
+{
 public:
-    static int accountCount;  // 静态成员变量
-    int balance;              // 普通成员变量
-    
-    BankAccount() {
-        accountCount++;  // 每创建一个对象就加1
-    }
+
+    goodGay();
+    void visit();
+
+private:
+    Building *building;
 };
 
-int BankAccount::accountCount = 0;
+class Building
+{
+    //告诉编译器 goodGay类是Building类的好朋友，可以访问到Building类中私有内容
+    friend class goodGay;
+public:
+    string m_SittingRoom; //客厅
+private:
+    string m_Bedroom;     //卧室（由于图片截断，根据代码逻辑补全）
+
+public:
+    Building():m_SittingRoom("客厅"),m_Bedroom("卧室") {}
+
+};
+
+// Building::Building()
+// {
+//     this->m_SittingRoom = "客厅";
+//     this->m_Bedroom = "卧室";
+// }
+
+goodGay::goodGay()
+{
+    building = new Building;
+}
+
+void goodGay::visit()
+{
+    cout << "好基友正在访问"<<building->m_SittingRoom<<endl;
+    cout << "好基友正在访问"<<building->m_Bedroom<<endl;
+}
 
 void test01()
 {
-    BankAccount acc1;
-    BankAccount acc2;
-    BankAccount acc3;
-    std::cout << std::format("获取方式一：{}",BankAccount::accountCount) << std::endl;
-    std::cout << std::format("获取方式二：{}",acc2.accountCount) << std::endl;
-    std::cout << std::format("获取方式三：{}",acc1.accountCount) << std::endl;
-
+    goodGay gg;
+    gg.visit();
 }
-
 
 int main()
 {
@@ -30,16 +57,3 @@ int main()
 
     return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,3 +1,4 @@
+// 练习汉诺塔递归算法，std::format格式化输出移动步骤
 #include <iostream>
 #include <format>
 #include <string>

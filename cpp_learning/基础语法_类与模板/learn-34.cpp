@@ -1,3 +1,4 @@
+// 练习深拷贝构造与赋值运算符重载，防止指针悬空
 #include <iostream>
 #include <format>
 

@@ -1,3 +1,4 @@
+// 练习访问权限public/protected/private的区分与使用
 #include<iostream>
 #include<string>
 #include<format>
@@ -31,7 +32,7 @@ public:
         m_name = "zhangsan";
         m_car = "tesla";
         m_Password = 123456;
-    }    
+    }
 
 };
 

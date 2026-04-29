@@ -1,3 +1,4 @@
+// 练习queue队列容器与银行服务模拟，知识点：queue先进先出、emplace、模拟排队
 #include <iostream>
 #include <queue>
 #include <string>

@@ -1,3 +1,4 @@
+// 练习用栈实现表达式括号匹配，判断括号序列是否合法
 #include <iostream>
 // P1739 表达式括号匹配
 #include <stack>

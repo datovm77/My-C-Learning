@@ -1,3 +1,4 @@
+// 练习字符串相似度比较与结构体算法应用
 #include <iostream>
 #include <algorithm>
 #include <vector>

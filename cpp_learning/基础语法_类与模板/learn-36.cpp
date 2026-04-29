@@ -1,3 +1,4 @@
+// 练习基类无默认构造时派生类初始化列表调用
 #include<iostream>
 #include<format>
 #include<string>

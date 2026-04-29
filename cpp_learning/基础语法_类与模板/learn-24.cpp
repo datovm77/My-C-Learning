@@ -1,55 +1,46 @@
+// 练习this指针的使用与链式调用返回引用
 #include<iostream>
 #include<format>
-struct person
+
+class Person
 {
-private:
-    int m_age ;
-
 public:
-
-    person() : m_age(0)
+    Person(int age)
     {
-        std::cout<< "person的无参构造"<<std::endl;
+        this->age = age;
     }
 
-    person(int a) : m_age(a)
+    Person& Personadd_age(const Person&p)
     {
-        std::cout<< "person的有参构造"<<std::endl;
+        this->age+=p.age;
+        return *this;
     }
 
-    person (const person &p) : m_age(p.m_age)
-    {
-        std::cout<< "person的拷贝构造"<<std::endl;
-    }
-
-    void setmy_age(int my_age)
-    {
-        this->m_age = my_age;
-    }
-
-    int knowm_age()
-    {
-        return m_age;
-    }
-
-    ~person()
-    {
-        std::cout<< "person的析构函数调用"<<std::endl;
-    }
+    int age;
 
 };
+
 void test01()
 {
-    person p1;
-    p1.setmy_age(10);
-
-    person p2(p1);
-
-    std::cout << std::format("p2的年龄为：{}岁",p2.knowm_age()) << std::endl;
-
+    Person p1(10);
+    std::cout<<std::format("p1的年龄是{}",p1.age)<< std::endl;
 }
+
+
+void test02()
+{
+    Person p1(10);
+    Person p2(10);
+
+    //p2.Personadd_age(p1);
+    p2.Personadd_age(p1).Personadd_age(p1).Personadd_age(p1).Personadd_age(p1);
+    std::cout << std::format("p2调用后的年龄是{}",p2.age) << std::endl;
+}
+
+
 int main()
 {
-    test01();
+    //test01();
+    test02();
     return 0;
 }

@@ -1,3 +1,4 @@
+// 练习用unique_ptr管理动态数组与指针偏移访问
 #include <iostream>
 #include <memory>
 using namespace std;

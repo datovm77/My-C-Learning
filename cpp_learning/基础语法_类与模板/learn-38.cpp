@@ -1,3 +1,4 @@
+// 练习重载等号运算符实现自定义对象比较
 #include<iostream>
 #include<string>
 #include<format>

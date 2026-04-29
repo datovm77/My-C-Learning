@@ -1,10 +1,11 @@
+// 练习LeetCode 14 最长公共前缀（解法一），知识点：逐字符比较、substr截取
 #include<iostream>
 #include<string>
 #include<vector>
 //力扣 14. 最长公共前缀 解法一
 class Solution {
 public:
-    std::string longestCommonPrefix(std::vector<std::string>& strs) 
+    std::string longestCommonPrefix(std::vector<std::string>& strs)
     {
         int length = strs[0].size(); //代表单词的最短长度
         std::string str = "";//代表公共内容

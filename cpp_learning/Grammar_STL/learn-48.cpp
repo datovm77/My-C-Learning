@@ -1,3 +1,4 @@
+// 练习for_each配合仿函数对象进行累加统计
 #include <iostream>
 #include <vector>
 #include <algorithm>

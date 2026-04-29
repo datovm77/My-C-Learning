@@ -1,3 +1,4 @@
+// 练习NOIP P1739 表达式括号匹配，知识点：stack栈、括号配对、遇@终止
 #include <iostream>
 // P1739 表达式括号匹配
 #include <stack>
@@ -31,7 +32,7 @@ void test01()
             else{
                 icon.push(ch);
             }
-        }        
+        }
     }
 
 

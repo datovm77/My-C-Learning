@@ -1,3 +1,4 @@
+// 练习字符串加密变换，字符循环移位与密钥处理
 #include <iostream>
 #include <string>
 

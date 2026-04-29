@@ -1,3 +1,4 @@
+// 练习手机类deque容器管理，增删查改与友元输出重载
 #include <iostream>
 #include <vector>
 #include <string>

@@ -1,3 +1,4 @@
+// 练习继承方式对成员访问权限的影响
 #include<iostream>
 #include<string>
 #include<format>

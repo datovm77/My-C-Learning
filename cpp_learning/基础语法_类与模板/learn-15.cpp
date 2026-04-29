@@ -1,3 +1,4 @@
+// 练习new与delete动态内存分配，堆区内存的申请与释放
 #include<iostream>
 #include<format>
 

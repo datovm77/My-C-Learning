@@ -1,3 +1,4 @@
+// 练习LeetCode 14 最长公共前缀（排序解法），知识点：sort排序、首尾字符串比较
 #include<iostream>
 #include<string>
 #include<vector>
@@ -6,7 +7,7 @@
 
 class Solution {
 public:
-    std::string longestCommonPrefix(std::vector<std::string>& strs) 
+    std::string longestCommonPrefix(std::vector<std::string>& strs)
     {
         if (strs.empty()) return "";
 
@@ -16,13 +17,13 @@ public:
         // 拿字典序最小（最前）和最大（最后）的两个字符串进行对比即可
         const std::string& first = strs.front();
         const std::string& last = strs.back();
-        
+
         int i = 0;
         int min_len = std::min(first.size(), last.size());
         while (i < min_len && first[i] == last[i]) {
             ++i;
         }
-        
+
         return first.substr(0, i);
     }
 };

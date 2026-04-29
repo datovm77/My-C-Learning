@@ -1,3 +1,4 @@
+// 练习set与结构化绑定解决木材仓库问题优化版
 #include <iostream>
 #include <set>
 #include <cmath>

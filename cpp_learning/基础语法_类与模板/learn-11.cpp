@@ -1,3 +1,4 @@
+// 练习C++内存四区，全局变量、静态变量与常量的存储位置
 #include <iostream>
 #include <string>  // 核心
 #include <format>  

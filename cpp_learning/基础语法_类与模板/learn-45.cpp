@@ -1,3 +1,4 @@
+// 练习函数模板的完全特化与const char*比较
 #include<iostream>
 #include<format>
 

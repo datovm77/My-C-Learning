@@ -1,3 +1,4 @@
+// 练习new/delete动态数组，手动扩容与指针管理
 #include <iostream>
 
 int main()

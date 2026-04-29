@@ -1,3 +1,4 @@
+// 练习判断数组是否存在重复元素，unordered_set去重
 #include <iostream>
 #include <string>
 #include <vector>

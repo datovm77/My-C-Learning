@@ -1,3 +1,4 @@
+// 练习string的拼接与append方法，知识点：+=运算符、append截取子串
 #include <iostream>
 #include <format>
 #include <string>

@@ -1,3 +1,4 @@
+// 练习Point类友元函数，计算两点间欧氏距离
 #include <iostream>
 #include <cmath>
 class Point

@@ -1,3 +1,4 @@
+// 练习用队列解决约瑟夫环问题与队列循环操作
 #include <iostream>
 #include <string>
 // P1996 约瑟夫问题

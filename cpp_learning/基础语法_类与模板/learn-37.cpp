@@ -1,3 +1,4 @@
+// 练习多态与虚函数实现运行时动态绑定
 #include <iostream>
 
 class Base

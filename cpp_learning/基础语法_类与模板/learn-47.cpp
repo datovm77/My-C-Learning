@@ -1,3 +1,4 @@
+// 练习类模板配合友元函数的类内实现
 #include<iostream>
 #include<format>
 #include<string>

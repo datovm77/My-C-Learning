@@ -1,3 +1,4 @@
+// 练习求1到n之和，递归、迭代与公式三种方法对比
 #include <iostream>
 using namespace std;
 

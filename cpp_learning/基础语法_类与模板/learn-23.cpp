@@ -1,3 +1,4 @@
+// 练习class与struct默认访问权限的区别
 #include<iostream>
 #include<string>
 

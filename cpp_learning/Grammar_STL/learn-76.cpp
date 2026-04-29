@@ -1,3 +1,4 @@
+// 练习账户类静态成员与友元函数，利率管理与余额更新
 #include <iostream>
 #include <string>
 using namespace std;

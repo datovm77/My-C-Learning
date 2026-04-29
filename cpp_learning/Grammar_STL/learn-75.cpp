@@ -1,3 +1,4 @@
+// 练习Hotel类静态成员，自动编号与总收入统计
 #include <iostream>
 #include <string>
 #include <vector>

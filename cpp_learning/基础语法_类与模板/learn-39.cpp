@@ -1,3 +1,4 @@
+// 练习函数对象（仿函数）的定义与使用
 #include <iostream>
 #include <string>
 using namespace std;

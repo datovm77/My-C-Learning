@@ -1,3 +1,4 @@
+// 练习机器人类定义，构造函数与友元函数筛选指定类型
 #include <iostream>
 #include <string>
 class robot

@@ -1,3 +1,4 @@
+// 练习用find_if和lambda表达式查找满足条件的元素
 #include <iostream>
 #include <algorithm>
 #include <vector>

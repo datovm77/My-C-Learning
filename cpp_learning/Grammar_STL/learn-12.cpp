@@ -1,3 +1,4 @@
+// 练习NOIP P1308 统计单词数（最简便版），知识点：首尾加空格巧用find匹配完整单词
 #include <iostream>
 #include <string>
 #include <algorithm>

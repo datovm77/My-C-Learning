@@ -1,3 +1,4 @@
+// 练习罗马数字转整数，switch-case替代哈希表的优化方案
 #include <iostream>
 #include <string>
 

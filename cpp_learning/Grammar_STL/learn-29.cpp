@@ -1,3 +1,4 @@
+// 练习用两个队列实现栈，队列的基本操作
 #include<iostream>
 #include<queue>
 #include <queue>

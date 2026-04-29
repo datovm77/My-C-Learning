@@ -1,43 +1,54 @@
+// 练习左移运算符与自增运算符的重载
 #include<iostream>
+#include<format>
 
 class Person
 {
-    public:
-    //常函数
-    Person(): m_A(0),m_b(0){}
+    friend std::ostream& operator<<(std::ostream& os,const Person &p1);
+public:
+    Person():m_A(0){}
 
-    void showPerson() const
+    Person& operator++()
     {
-        // m_A = 100;
-        //this->m_A = 100;
-        this->m_b = 100;  //mutable 声明过
+        m_A++;
+        return *this;
     }
-    void func()
-    {
 
+    Person operator++(int)
+    {
+        Person temp = *this;
+        m_A++;
+        return temp;
     }
+
+
+private:
     int m_A;
-    mutable int m_b;//特殊变量，即使在常函数中也可以修改这个值
 };
 
+std::ostream& operator<<(std::ostream& os,const Person &p1)
+{
+    std::cout << p1.m_A ;
+    return os;
+}
 void test01()
 {
     Person p1;
-    p1.showPerson();
-    std::cout << p1.m_b << std::endl;
+
+    std::cout << ++(++p1) <<std::endl;
+
 }
 
 void test02()
 {
-    const Person p2;
-    //p2.m_A = 100;
-    p2.m_b = 100;  //m_b为特殊值
-    p2.showPerson();//可以调用
-    //p2.func()无法调用
+    Person p2;
+    std::cout << (p2++)++ << std::endl;  // 输出: 0
+    std::cout << p2 << std::endl;        // 输出: 1 (不是2！)
 }
 
 int main()
 {
-    test01();
+    //test01();
+    test02();
     return 0;
 }

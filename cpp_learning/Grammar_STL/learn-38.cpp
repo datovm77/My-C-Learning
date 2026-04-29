@@ -1,3 +1,4 @@
+// 练习unique_ptr管理int和char动态数组的输入计算
 #include <iostream>
 #include <string>
 #include <memory>

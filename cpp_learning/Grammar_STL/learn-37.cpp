@@ -1,3 +1,4 @@
+// 练习智能指针管理数组与指针算术访问元素
 #include <iostream>
 #include <sstream>
 #include <string>

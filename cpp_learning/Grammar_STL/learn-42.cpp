@@ -1,3 +1,4 @@
+// 练习用set管理木材仓库有序集合的插入与查找
 #include <iostream>
 #include <set>
 // /P5250 【深基17.例5】木材仓库

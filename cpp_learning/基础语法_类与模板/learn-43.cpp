@@ -1,3 +1,4 @@
+// 练习函数模板显式指定类型与自动推导
 #include <iostream>
 #include <format>
 

@@ -1,3 +1,4 @@
+// 练习类模板成员函数的类外实现
 #include<iostream>
 #include<format>
 #include<string>

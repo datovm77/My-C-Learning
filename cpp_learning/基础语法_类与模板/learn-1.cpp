@@ -1,3 +1,4 @@
+// 练习布尔类型与cout标准输出基本用法
 #include <iostream>
 using namespace std;
 

@@ -1,3 +1,4 @@
+// 练习C风格字符串strlen与std::string::size()用法对比
 #include <iostream>
 using namespace std;
 //学习debug

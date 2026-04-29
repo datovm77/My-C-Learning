@@ -1,3 +1,4 @@
+// 练习结构体作函数参数，值传递与const指针传递对比
 #include<iostream>
 #include<format>
 

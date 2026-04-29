@@ -1,3 +1,4 @@
+// 练习学生类定义与vector容器存储，输入输出操作
 #include <iostream>
 #include <string>
 #include <vector>

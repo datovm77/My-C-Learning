@@ -1,3 +1,4 @@
+// 练习数组遍历与循环累加求和，调试找隐藏Bug
 #include <iostream>
 using namespace std;
 

@@ -1,3 +1,4 @@
+// 练习CDate类与软件类，闰年判断、天数计算与到期日比较
 #include <iostream>
 #include <string>
 // write-access check: minimal edit
@@ -111,7 +112,7 @@ private:
         }
         return "USB disk";
     }
-    
+
 
 public:
     soft_w(std::string name_out, char type_out, CDate d, char media_out)

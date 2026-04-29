@@ -1,3 +1,4 @@
+// 练习结构体struct定义与初始化，指针访问结构体成员
 #include<iostream>
 #include<format>
 #include<string>

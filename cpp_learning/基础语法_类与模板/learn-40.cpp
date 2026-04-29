@@ -1,3 +1,4 @@
+// 练习继承中同名成员与同名函数的隐藏规则
 #include <iostream>
 #include <string>
 using namespace std;

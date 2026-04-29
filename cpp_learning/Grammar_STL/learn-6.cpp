@@ -1,3 +1,4 @@
+// 练习手动实现字符串分割函数，知识点：find、substr、delimiter分隔
 #include <vector>
 #include<iostream>
 #include<string>

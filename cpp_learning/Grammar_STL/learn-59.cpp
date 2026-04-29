@@ -1,3 +1,4 @@
+// 练习圆类，计算周长面积与判断点是否在圆内
 #include <iostream>
 #include <string>
 #include <iomanip>

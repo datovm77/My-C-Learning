@@ -1,3 +1,4 @@
+// 练习调试技巧，观察函数调用与循环变量变化
 #include <iostream>
 using namespace std;
 

@@ -1,3 +1,4 @@
+// 练习猫类按体重排序，std::sort配合lambda比较器
 #include <iostream>
 #include <string>
 #include <vector>

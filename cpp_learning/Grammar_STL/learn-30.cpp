@@ -1,3 +1,4 @@
+// 练习用单个队列实现栈，旋转队列模拟栈操作
 #include <queue>
 
 class MyStack {

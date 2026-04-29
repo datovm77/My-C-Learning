@@ -1,3 +1,4 @@
+// 练习std::format格式化输出，对齐补零与浮点精度控制
 #include <iostream>
 #include <format> // C++20 新特性
 #include <string>

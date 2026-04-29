@@ -1,53 +1,56 @@
+// 练习构造函数的无参、有参、拷贝三种形式
 #include<iostream>
 #include<format>
-
-class Person
+struct person
 {
-    friend std::ostream& operator<<(std::ostream& os,const Person &p1);
-public:
-    Person():m_A(0){}
-
-    Person& operator++()
-    {
-        m_A++;
-        return *this; 
-    }
-
-    Person operator++(int)
-    {
-        Person temp = *this;
-        m_A++;
-        return temp;
-    }
-
-
 private:
-    int m_A;
-};
+    int m_age ;
 
-std::ostream& operator<<(std::ostream& os,const Person &p1)
-{
-    std::cout << p1.m_A ;
-    return os;
-}
+public:
+
+    person() : m_age(0)
+    {
+        std::cout<< "person的无参构造"<<std::endl;
+    }
+
+    person(int a) : m_age(a)
+    {
+        std::cout<< "person的有参构造"<<std::endl;
+    }
+
+    person (const person &p) : m_age(p.m_age)
+    {
+        std::cout<< "person的拷贝构造"<<std::endl;
+    }
+
+    void setmy_age(int my_age)
+    {
+        this->m_age = my_age;
+    }
+
+    int knowm_age()
+    {
+        return m_age;
+    }
+
+    ~person()
+    {
+        std::cout<< "person的析构函数调用"<<std::endl;
+    }
+
+};
 void test01()
 {
-    Person p1;
+    person p1;
+    p1.setmy_age(10);
 
-    std::cout << ++(++p1) <<std::endl;
+    person p2(p1);
+
+    std::cout << std::format("p2的年龄为：{}岁",p2.knowm_age()) << std::endl;
 
 }
-
-void test02()
-{
-    Person p2;
-    std::cout << (p2++)++ << std::endl;  // 输出: 0
-    std::cout << p2 << std::endl;        // 输出: 1 (不是2！)
-}
-
 int main()
 {
-    //test01();
-    test02();
+    test01();
     return 0;
 }

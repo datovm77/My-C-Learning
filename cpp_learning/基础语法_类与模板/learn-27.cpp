@@ -1,52 +1,59 @@
-#include<iostream>
-#include<format>
-
-class Person
+// 练习初始化列表初始化常量、引用和普通成员
+#include <iostream>
+#include <string>
+using namespace std;
+class BankAccount
 {
+private:
+    const int accountNumber; // 常量账号
+    string ownerName;       // 引用持有人姓名
+    double balance;
+    static int totalAccounts;
+
 public:
-    Person(int age)
+    // 完整的初始化列表示例
+    BankAccount(int accNum, const string &owner, double initial = 0.0)
+        : accountNumber(accNum), // 常量必须初始化
+          ownerName(owner),      // 引用必须初始化
+          balance(initial)       // 普通成员
     {
-        this->age = age;
+        totalAccounts++;
+        cout << "Account " << accountNumber << " created" << endl;
     }
 
-    Person& Personadd_age(const Person&p)
+    void deposit(double amount)
     {
-        this->age+=p.age;
-        return *this;
+        balance += amount;
     }
 
-    int age;
+    void display()
+    {
+        cout << "Account: " << accountNumber
+             << ", Owner: " << ownerName
+             << ", Balance: $" << balance << endl;
+    }
 
+    static int getTotalAccounts()
+    {
+        return totalAccounts;
+    }
 };
 
-void test01()
-{
-    Person p1(10);
-    std::cout<<std::format("p1的年龄是{}",p1.age)<< std::endl;
-}
+int BankAccount::totalAccounts = 0;
 
-
-void test02()
-{
-    Person p1(10);
-    Person p2(10);
-
-    //p2.Personadd_age(p1);
-    p2.Personadd_age(p1).Personadd_age(p1).Personadd_age(p1).Personadd_age(p1);
-    std::cout << std::format("p2调用后的年龄是{}",p2.age) << std::endl;
-}
-
-
+// 使用示例
 int main()
 {
-    //test01();
-    test02();
+    string name1 = "Alice";
+    string name2 = "Bob";
+
+    BankAccount acc1(1001, name1, 1000.0);
+    BankAccount acc2(1002, name2, 500.0);
+
+    acc1.display();
+    // name2 = "gem";
+    acc2.display();
+
+    cout << "Total accounts: " << BankAccount::getTotalAccounts() << endl;
     return 0;
 }
-
-
-
-
-
-
-

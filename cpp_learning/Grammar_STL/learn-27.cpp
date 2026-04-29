@@ -1,3 +1,4 @@
+// 练习用栈判断多种括号组合是否合法匹配
 #include <iostream>
 #include <string>
 #include <stack>

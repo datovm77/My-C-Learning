@@ -1,3 +1,4 @@
+// 练习用两个栈实现队列，栈与队列的转换
 #include<iostream>
 #include<string>
 #include<stack>

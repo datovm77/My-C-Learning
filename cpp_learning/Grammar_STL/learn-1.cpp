@@ -1,3 +1,4 @@
+// 练习vector容器的基本使用与迭代器遍历，知识点：vector、迭代器、for_each
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -38,9 +39,9 @@ void test01()
     //     std::cout << *it << std::endl;
     // }
 
-    
+
     //基于范围的 for 循环
-    for (const int &val : v) 
+    for (const int &val : v)
     {
         std::cout << val << " ";
     }

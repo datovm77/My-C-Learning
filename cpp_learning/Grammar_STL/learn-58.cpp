@@ -1,3 +1,4 @@
+// 练习Person类计算BMI指数与体脂率，格式化输出
 #include <iostream>
 #include <string>
 #include <vector>

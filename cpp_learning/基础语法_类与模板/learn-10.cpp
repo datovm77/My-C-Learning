@@ -1,3 +1,4 @@
+// 练习std::string拼接、format格式化与ends_with查询操作
 #include<iostream>
 // #include<string.h> //老！
 #include<string>

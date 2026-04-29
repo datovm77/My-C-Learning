@@ -1,3 +1,4 @@
+// 练习std::remove算法不改变容器大小，需配合erase真正删除
 #include <iostream>
 #include <vector>
 #include <algorithm>

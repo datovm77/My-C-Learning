@@ -1,3 +1,4 @@
+// 练习NOIP P1308 统计单词数（迭代改进版），知识点：transform、tolower、逐词匹配
 #include <iostream>
 #include <string>
 #include <algorithm>

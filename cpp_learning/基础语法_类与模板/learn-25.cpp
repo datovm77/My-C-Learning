@@ -1,39 +1,42 @@
+// 练习常函数与mutable关键字的使用
 #include<iostream>
-#include<format>
-struct person
+
+class Person
 {
-public:
-    int m_age ;
-    int *m_height;
-public:
+    public:
+    //常函数
+    Person(): m_A(0),m_b(0){}
 
-    person() 
+    void showPerson() const
     {
-        std::cout<< "person的无参构造"<<std::endl;
+        // m_A = 100;
+        //this->m_A = 100;
+        this->m_b = 100;  //mutable 声明过
     }
-
-    person(int a,int height) : m_age(a),m_height(new int(height))
+    void func()
     {
-        std::cout<< "person的有参构造"<<std::endl;
+
     }
-
-    person (const person &p) : m_age(p.m_age)
-    {
-        std::cout<< "person的拷贝构造"<<std::endl;
-    }
-
-
-    ~person()
-    {
-        std::cout<< "person的析构函数调用"<<std::endl;
-    }
-
+    int m_A;
+    mutable int m_b;//特殊变量，即使在常函数中也可以修改这个值
 };
+
 void test01()
 {
-
-
+    Person p1;
+    p1.showPerson();
+    std::cout << p1.m_b << std::endl;
 }
+
+void test02()
+{
+    const Person p2;
+    //p2.m_A = 100;
+    p2.m_b = 100;  //m_b为特殊值
+    p2.showPerson();//可以调用
+    //p2.func()无法调用
+}
+
 int main()
 {
     test01();

@@ -1,3 +1,4 @@
+// 练习C++内存四区概念框架，代码区全局区栈区堆区
 #include<iostream>
 #include<format>
 #include<string>

@@ -1,54 +1,38 @@
+// 练习stack栈容器与括号匹配验证，知识点：stack压栈弹栈、括号匹配逻辑
 #include <iostream>
-#include <deque>
+#include <stack>
 #include <string>
+using namespace std;
 
-void printDeque(const std::string &label, const std::deque<int> &d)
-{
-    std::cout << label << ": ";
-    for (const auto &elem : d)
-    {
-        std::cout << elem << " ";
+bool isValid(const string& s) {
+    stack<char> stk;
+
+    for (char c : s) {
+        // 遇到左括号，压入对应的右括号
+        if (c == '(')  stk.push(')');
+        else if (c == '[')  stk.push(']');
+        else if (c == '{')  stk.push('}');
+        else {
+            // 遇到右括号
+            // 如果栈为空，或者栈顶不匹配，返回 false
+            if (stk.empty() || stk.top() != c) {
+                return false;
+            }
+            stk.pop();  // 匹配成功，弹出
+        }
     }
-    std::cout << "(size=" << d.size() << ")" << std::endl;
+
+    // 最终栈为空说明全部匹配
+    return stk.empty();
 }
 
-int main()
-{
-    std::deque<int> d;
+int main() {
 
-    // === 头部和尾部操作 ===
-    d.push_back(3);
-    d.push_back(4);
-    d.push_front(2);
-    d.push_front(1);
-    printDeque("push 后", d); // 1 2 3 4
-
-    d.pop_front();
-    printDeque("pop_front 后", d); // 2 3 4
-
-    d.pop_back();
-    printDeque("pop_back 后", d); // 2 3
-
-    // === 中间插入 ===
-    d.insert(d.begin() + 1, 99);
-    printDeque("insert(pos1, 99)", d); // 2 99 3
-
-    d.insert(d.end(), 3, 0);
-    printDeque("insert(end, 3个0)", d); // 2 99 3 0 0 0
-
-    d.insert(d.begin(), {-2, -1});
-    printDeque("insert(begin, 列表)", d); // -2 -1 2 99 3 0 0 0
-
-    // === 删除操作 ===
-    d.erase(d.begin() + 3);       // 删除 99
-    printDeque("erase(pos3)", d); // -2 -1 2 3 0 0 0
-
-    d.erase(d.begin() + 4, d.end()); // 删除后面的 0
-    printDeque("erase(区间)", d);    // -2 -1 2 3
-
-    // === 清空 ===
-    d.clear();
-    printDeque("clear 后", d); // (空)
+    cout << isValid("()[]{}") << endl;   // 1 (true)
+    cout << isValid("([{}])") << endl;   // 1 (true)
+    cout << isValid("(]") << endl;       // 0 (false)
+    cout << isValid("([)]") << endl;     // 0 (false)
+    cout << isValid("{[]}") << endl;     // 1 (true)
 
     return 0;
 }

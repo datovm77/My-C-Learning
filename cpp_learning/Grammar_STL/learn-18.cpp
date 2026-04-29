@@ -1,4 +1,5 @@
-﻿#include <cstdio>
+// 练习NOIP P1055 ISBN号码校验（C风格），知识点：scanf格式化输入、取模校验
+#include <cstdio>
 #include <iostream>
 
 // P1055 [NOIP 2008 普及组] ISBN 号码 C语言风格版

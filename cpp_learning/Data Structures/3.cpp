@@ -1,3 +1,4 @@
+// 练习TV类静态成员与vector容器管理，模式切换与频道操作
 #include <iostream>
 #include <string>
 #include <iomanip>

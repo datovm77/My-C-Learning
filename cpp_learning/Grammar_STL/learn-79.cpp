@@ -1,3 +1,4 @@
+// 练习日期时间格式化输出，setfill与setw控制宽度补零
 #include <iostream>
 #include <iomanip>
 

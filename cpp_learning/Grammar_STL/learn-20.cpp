@@ -1,3 +1,4 @@
+// 练习vector容器基础操作与模板打印函数，知识点：vector增删、模板函数、范围for
 #include <iostream>
 #include <string>
 #include <vector>

@@ -1,3 +1,4 @@
+// 练习类的定义与对象实例化，圆的周长计算
 #include<iostream>
 #include<format>
 //类与对象
@@ -27,6 +28,6 @@ int main()
     Circle c1;//圆的对象,实例化
     c1.m_r = 10;
     std::cout << std::format("圆的周长为：{}",c1.calculateZC()) << std::endl;
-    
+
     return 0;
 }

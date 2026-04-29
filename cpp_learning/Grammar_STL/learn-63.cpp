@@ -1,3 +1,4 @@
+// 练习栈类动态数组实现，构造析构与push/pop操作
 #include<iostream>
 using namespace std;
 //test

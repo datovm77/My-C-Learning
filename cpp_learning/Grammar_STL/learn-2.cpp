@@ -1,3 +1,4 @@
+// 练习vector存储自定义类对象并用迭代器遍历，知识点：vector、自定义类、友元、format
 #include <iostream>
 #include <format>
 #include <string>

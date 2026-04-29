@@ -1,3 +1,4 @@
+// 练习罗马数字转整数优化，static哈希表与substr截取
 #include <iostream>
 #include <string>
 #include <unordered_map>
@@ -21,11 +22,11 @@ public:
             if (i < len - 1) {
                 // 【优化2】：直接用 substr 截取连续 2 个字符，代替反复执行 += 的字符串拼接操作
                 std::string temp_t = s.substr(i, 2);
-                
+
                 auto it = mp.find(temp_t);
                 if (it != mp.end()) {
                     // 【优化3】：直接通过迭代器 it->second 获取值，避免使用 mp[temp_t] 造成底层的二次哈希计算和查找
-                    sum += it->second; 
+                    sum += it->second;
                     ++i; // 我们一次性消耗了 2 个字符，所以手动把指针往后多挪一个位置
                     continue; // 匹配成功，直接进入下一轮循环
                 }
@@ -38,7 +39,7 @@ public:
                 sum += it->second;
             }
         }
-        
+
         return sum;
     }
 };

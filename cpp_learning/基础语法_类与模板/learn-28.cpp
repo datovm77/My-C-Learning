@@ -1,58 +1,54 @@
-#include <iostream>
-#include <string>
-using namespace std;
-class BankAccount
+// 练习加号运算符重载为成员函数
+#include<iostream>
+#include<string>
+#include<format>
+class Person
 {
-private:
-    const int accountNumber; // 常量账号
-    string ownerName;       // 引用持有人姓名
-    double balance;
-    static int totalAccounts;
-
 public:
-    // 完整的初始化列表示例
-    BankAccount(int accNum, const string &owner, double initial = 0.0)
-        : accountNumber(accNum), // 常量必须初始化
-          ownerName(owner),      // 引用必须初始化
-          balance(initial)       // 普通成员
+    int m_A;
+    int m_B;
+
+    Person():m_A(0),m_B(0){}
+
+    Person operator+(Person&p1)
     {
-        totalAccounts++;
-        cout << "Account " << accountNumber << " created" << endl;
+        Person temp;
+        temp.m_A = p1.m_A + this->m_A;
+        temp.m_B = p1.m_B + this->m_B;
+        return temp;
     }
 
-    void deposit(double amount)
-    {
-        balance += amount;
-    }
 
-    void display()
-    {
-        cout << "Account: " << accountNumber
-             << ", Owner: " << ownerName
-             << ", Balance: $" << balance << endl;
-    }
-
-    static int getTotalAccounts()
-    {
-        return totalAccounts;
-    }
 };
 
-int BankAccount::totalAccounts = 0;
+// Person operator+(Person&p1,Person&p2)
+// {
+//     Person temp;
+//     temp.m_A = p1.m_A+p2.m_A;
+//     temp.m_B = p1.m_B+p2.m_B;
+//     return temp;
+// }
 
-// 使用示例
+
+void test01()
+{
+    Person p1;
+    Person p2;
+    p1.m_A = 11;
+    p1.m_B = 12;
+    p2.m_A = 13;
+    p2.m_B = 14;
+
+    Person p3;
+    p3 = p1+p2;
+    std::cout << std::format("p3的m_A的值为{}，m_B的值的{}",p3.m_A,p3.m_B) << std::endl;
+}
+
 int main()
 {
-    string name1 = "Alice";
-    string name2 = "Bob";
+    test01();
 
-    BankAccount acc1(1001, name1, 1000.0);
-    BankAccount acc2(1002, name2, 500.0);
 
-    acc1.display();
-    // name2 = "gem";
-    acc2.display();
-
-    cout << "Total accounts: " << BankAccount::getTotalAccounts() << endl;
     return 0;
+
 }

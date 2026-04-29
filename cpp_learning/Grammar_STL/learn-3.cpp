@@ -1,3 +1,4 @@
+// 练习std::string的构造与C风格字符串初始化，知识点：string构造、const char*
 #include<iostream>
 #include<string>
 

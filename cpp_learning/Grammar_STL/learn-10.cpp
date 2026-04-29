@@ -1,4 +1,5 @@
-﻿#include <iostream>
+// 练习NOIP P1308 统计单词数（复杂版），知识点：tolower转换、手动逐字符匹配
+#include <iostream>
 #include <string>
 #include <algorithm>
 #include <cctype>

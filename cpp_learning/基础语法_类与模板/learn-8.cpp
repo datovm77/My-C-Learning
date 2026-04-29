@@ -1,3 +1,4 @@
+// 练习调试观察内存布局，理解大小端序存储方式
 #include<iostream>
 int main()
 {

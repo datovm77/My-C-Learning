@@ -1,3 +1,4 @@
+// 练习电话号码类，拷贝构造函数中进行合法性校验
 #include <iostream>
 #include <string>
 

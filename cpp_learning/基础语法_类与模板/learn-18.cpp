@@ -1,3 +1,4 @@
+// 练习常量引用的const修饰与防止误操作
 #include <iostream>
 using namespace std;
 
@@ -10,7 +11,7 @@ void showValue(const int& v) {
 int main() {
 
     // int& ref = 10; // 引用本身需要一个合法的内存空间，因此这行错误
-    
+
     // 加入const就可以了，编译器优化代码：int temp = 10; const int& ref = temp;
     const int& ref = 10;
 

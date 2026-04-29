@@ -1,3 +1,4 @@
+// 练习类的封装，学生类的属性与行为定义
 #include<iostream>
 #include<format>
 #include<string>
@@ -18,7 +19,7 @@ public:
     {
         std::cout << std::format("姓名是：{}，学号是：{}",m_name,m_id) << std::endl;
     }
-    
+
 };
 
 int main()

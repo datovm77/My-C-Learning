@@ -1,48 +1,55 @@
+// 练习deque容器的增删与访问操作，知识点：push/pop首尾操作、insert、erase、at
 #include <iostream>
 #include <deque>
+#include <string>
 
-void printDeque(const std::deque<int> &d)
+void printDeque(const std::string &label, const std::deque<int> &d)
 {
+    std::cout << label << ": ";
     for (const auto &elem : d)
     {
         std::cout << elem << " ";
     }
-    std::cout << std::endl;
+    std::cout << "(size=" << d.size() << ")" << std::endl;
 }
 
 int main()
 {
-    // 1. 默认构造
-    std::deque<int> d1;
-    std::cout << "d1 (默认构造): ";
-    printDeque(d1); // (空)
+    std::deque<int> d;
 
-    // 2. 填充构造
-    std::deque<int> d2(5, 100);
-    std::cout << "d2 (5个100): ";
-    printDeque(d2); // 100 100 100 100 100
+    // === 头部和尾部操作 ===
+    d.push_back(3);
+    d.push_back(4);
+    d.push_front(2);
+    d.push_front(1);
+    printDeque("push 后", d); // 1 2 3 4
 
-    // 3. 区间构造
-    std::deque<int> d3(d2.begin(), d2.begin() + 3);
-    std::cout << "d3 (d2的前3个): ";
-    printDeque(d3); // 100 100 100
+    d.pop_front();
+    printDeque("pop_front 后", d); // 2 3 4
 
-    // 4. 拷贝构造
-    std::deque<int> d4(d3);
-    std::cout << "d4 (拷贝d3): ";
-    printDeque(d4); // 100 100 100
+    d.pop_back();
+    printDeque("pop_back 后", d); // 2 3
 
-    // 5. 初始化列表构造
-    std::deque<int> d5 = {10, 20, 30, 40, 50};
-    std::cout << "d5 (初始化列表): ";
-    printDeque(d5); // 10 20 30 40 50
+    // === 中间插入 ===
+    d.insert(d.begin() + 1, 99);
+    printDeque("insert(pos1, 99)", d); // 2 99 3
 
-    // 6. 移动构造
-    std::deque<int> d6(std::move(d5));
-    std::cout << "d6 (移动自d5): ";
-    printDeque(d6); // 10 20 30 40 50
-    std::cout << "d5 (被移动后): ";
-    printDeque(d5); // (通常为空)
+    d.insert(d.end(), 3, 0);
+    printDeque("insert(end, 3个0)", d); // 2 99 3 0 0 0
+
+    d.insert(d.begin(), {-2, -1});
+    printDeque("insert(begin, 列表)", d); // -2 -1 2 99 3 0 0 0
+
+    // === 删除操作 ===
+    d.erase(d.begin() + 3);       // 删除 99
+    printDeque("erase(pos3)", d); // -2 -1 2 3 0 0 0
+
+    d.erase(d.begin() + 4, d.end()); // 删除后面的 0
+    printDeque("erase(区间)", d);    // -2 -1 2 3
+
+    // === 清空 ===
+    d.clear();
+    printDeque("clear 后", d); // (空)
 
     return 0;
 }

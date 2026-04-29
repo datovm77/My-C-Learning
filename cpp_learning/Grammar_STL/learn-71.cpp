@@ -1,3 +1,4 @@
+// 练习斐波那契三种实现，朴素递归、记忆化与迭代耗时对比
 #include <iostream>
 #include <vector>
 #include <chrono>
@@ -32,15 +33,15 @@ long long fibIter(int n) {
 
 int main() {
     int n = 40;
-    
+
     // 测试朴素递归
     auto start = chrono::high_resolution_clock::now();
     cout << "朴素: F(" << n << ") = " << fibNaive(n);
     auto end = chrono::high_resolution_clock::now();
-    cout << "  耗时: " 
+    cout << "  耗时: "
          << chrono::duration_cast<chrono::milliseconds>(end - start).count()
          << " ms" << endl;
-    
+
     // 测试记忆化递归
     memo.assign(n + 1, -1);
     start = chrono::high_resolution_clock::now();
@@ -49,7 +50,7 @@ int main() {
     cout << "  耗时: "
          << chrono::duration_cast<chrono::microseconds>(end - start).count()
          << " μs" << endl;
-    
+
     // 测试迭代
     start = chrono::high_resolution_clock::now();
     cout << "迭代: F(" << n << ") = " << fibIter(n);
@@ -57,6 +58,6 @@ int main() {
     cout << "  耗时: "
          << chrono::duration_cast<chrono::microseconds>(end - start).count()
          << " μs" << endl;
-    
+
     return 0;
 }

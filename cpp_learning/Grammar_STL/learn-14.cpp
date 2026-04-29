@@ -1,3 +1,4 @@
+// 练习LeetCode 14 最长公共前缀（优化竖向扫描），知识点：逐列比较、提前返回
 #include<iostream>
 #include<string>
 #include<vector>

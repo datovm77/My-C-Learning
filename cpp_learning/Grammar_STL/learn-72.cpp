@@ -1,3 +1,4 @@
+// 练习数组下标本质是指针运算，arr[i]等于*(arr+i)
 #include <iostream>
 int main()
 {
