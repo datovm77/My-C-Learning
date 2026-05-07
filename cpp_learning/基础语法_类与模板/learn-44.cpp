@@ -1,4 +1,4 @@
-// 练习类模板的三种调用方式与参数传递
+// 练习函数模板调用，知识点：显式指定模板参数与自动类型推导
 #include <iostream>
 #include <format>
 #include <string>

@@ -1,4 +1,4 @@
-// 练习TV类静态成员与vector容器管理，模式切换与频道操作
+// 练习账户类继承与多态，知识点：虚函数、派生类、拷贝构造、格式化输出
 #include <iostream>
 #include <string>
 #include <iomanip>

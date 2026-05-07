@@ -1,4 +1,4 @@
-// 练习new与delete动态内存分配，堆区内存的申请与释放
+// 练习结构体作函数参数，知识点：值传递与const指针传递
 #include<iostream>
 #include<format>
 

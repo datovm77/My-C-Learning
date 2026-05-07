@@ -1,4 +1,4 @@
-// 练习手机类deque容器管理，增删查改与友元输出重载
+// 练习TV类静态成员与vector容器管理，知识点：静态成员、友元函数、模式切换、频道和音量控制
 #include <iostream>
 #include <vector>
 #include <string>

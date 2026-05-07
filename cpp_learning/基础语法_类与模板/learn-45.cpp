@@ -1,4 +1,4 @@
-// 练习函数模板的完全特化与const char*比较
+// 练习类模板基础，知识点：模板类定义与类模板参数推导
 #include<iostream>
 #include<format>
 

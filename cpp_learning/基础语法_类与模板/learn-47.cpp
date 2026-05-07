@@ -1,4 +1,4 @@
-// 练习类模板配合友元函数的类内实现
+// 练习类模板类外实现，知识点：成员函数的类外定义
 #include<iostream>
 #include<format>
 #include<string>
@@ -37,5 +37,4 @@ int main()
     test01();
     return 0;
 }
-
 

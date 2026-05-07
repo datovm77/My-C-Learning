@@ -1,4 +1,4 @@
-// 练习继承方式对成员访问权限的影响
+// 练习等号运算符重载，知识点：自定义对象比较与const成员函数
 #include<iostream>
 #include<string>
 #include<format>

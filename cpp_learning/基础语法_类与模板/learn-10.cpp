@@ -1,4 +1,4 @@
-// 练习std::string拼接、format格式化与ends_with查询操作
+// 练习std::string基础操作，知识点：size查询与C风格字符串对比
 #include<iostream>
 // #include<string.h> //老！
 #include<string>

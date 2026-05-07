@@ -1,4 +1,4 @@
-// 练习基类无默认构造时派生类初始化列表调用
+// 练习函数对象，知识点：operator()重载与匿名仿函数
 #include<iostream>
 #include<format>
 #include<string>

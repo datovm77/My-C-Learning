@@ -1,4 +1,4 @@
-// 练习C++内存四区，全局变量、静态变量与常量的存储位置
+// 练习std::string常用操作，知识点：拼接、format、ends_with、contains与to_string
 #include <iostream>
 #include <string>  // 核心
 #include <format>  

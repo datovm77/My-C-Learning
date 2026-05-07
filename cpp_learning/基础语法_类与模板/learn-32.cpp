@@ -1,4 +1,4 @@
-// 练习深拷贝与浅拷贝及析构函数的资源管理
+// 练习构造与析构基础，知识点：无参、有参、拷贝构造与动态成员
 #include<iostream>
 #include<format>
 struct person

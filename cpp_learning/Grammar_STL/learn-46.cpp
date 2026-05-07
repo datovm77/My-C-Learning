@@ -1,4 +1,4 @@
-// 练习动态二维数组的矩阵转置与指针操作
+// 练习动态二维数组的90度旋转输出，知识点：二维数组指针、动态内存、矩阵下标映射
 #include <iostream>
 #include <string>
 #include <vector>

@@ -1,4 +1,4 @@
-// 练习调试观察内存布局，理解大小端序存储方式
+// 练习C风格字符串与std::string，知识点：字符数组、字符串字面量与size
 #include<iostream>
 int main()
 {

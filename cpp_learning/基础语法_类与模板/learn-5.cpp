@@ -1,4 +1,4 @@
-// 练习C风格字符串strlen与std::string::size()用法对比
+// 练习调试函数调用与循环，知识点：断点观察局部变量和累加过程
 #include <iostream>
 using namespace std;
 //学习debug

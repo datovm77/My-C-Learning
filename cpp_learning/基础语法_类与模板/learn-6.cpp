@@ -1,4 +1,4 @@
-// 练习调试技巧，观察函数调用与循环变量变化
+// 练习数组遍历求和，知识点：循环访问数组与调试输出
 #include <iostream>
 using namespace std;
 

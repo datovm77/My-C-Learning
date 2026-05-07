@@ -1,4 +1,4 @@
-// 练习类模板的基本定义与自动类型推导
+// 练习函数模板特化，知识点：const char*的完全特化比较
 #include <iostream>
 #include <cstring>
 using namespace std;

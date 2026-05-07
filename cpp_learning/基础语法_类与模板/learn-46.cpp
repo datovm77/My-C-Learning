@@ -1,4 +1,4 @@
-// 练习类模板成员函数的类外实现
+// 练习类模板作函数参数，知识点：指定模板实参与对象传参
 #include<iostream>
 #include<format>
 #include<string>

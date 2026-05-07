@@ -1,3 +1,4 @@
+// 练习单链表手动创建与遍历，知识点：节点结构、next指针、动态内存释放
 #include <iostream>
 
 struct Node {

@@ -1,4 +1,4 @@
-// 练习结构体struct定义与初始化，指针访问结构体成员
+// 练习C++内存四区概念，知识点：代码区、全局区、栈区与堆区说明
 #include<iostream>
 #include<format>
 #include<string>

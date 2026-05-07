@@ -1,4 +1,4 @@
-// 练习结构体作函数参数，值传递与const指针传递对比
+// 练习结构体定义与访问，知识点：struct初始化与指针访问成员
 #include<iostream>
 #include<format>
 

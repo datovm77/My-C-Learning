@@ -1,4 +1,4 @@
-// 练习函数定义与调用，const char*作为函数参数
+// 练习布尔类型输出，知识点：bool变量与cout打印
  #include<iostream>
 using namespace std;
 int main()

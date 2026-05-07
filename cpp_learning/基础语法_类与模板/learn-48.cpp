@@ -1,4 +1,4 @@
-// 练习类模板的基本定义与隐式实例化
+// 练习类模板友元函数，知识点：友元函数类内定义与访问私有成员
 #include<iostream>
 #include<format>
 #include<string>

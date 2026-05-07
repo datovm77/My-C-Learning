@@ -1,4 +1,4 @@
-// 练习账户类继承与多态，虚函数计算利息与格式化输出
+// 练习手机类与deque容器管理，知识点：类封装、构造析构、emplace_front、范围for查询
 #include <iostream>
 #include <deque>
 #include <algorithm>

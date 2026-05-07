@@ -1,4 +1,4 @@
-// 练习初始化列表初始化常量、引用和普通成员
+// 练习初始化列表，知识点：const成员、普通成员与静态成员配合
 #include <iostream>
 #include <string>
 using namespace std;

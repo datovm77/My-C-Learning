@@ -1,3 +1,4 @@
+// 练习单链表按位置插入节点，知识点：前驱节点、头插特判、指针重连、越界处理
 #include <iostream>
 
 struct Node {

@@ -1,4 +1,4 @@
-// 练习重载等号运算符实现自定义对象比较
+// 练习继承同名隐藏，知识点：同名成员与同名函数的访问
 #include<iostream>
 #include<string>
 #include<format>

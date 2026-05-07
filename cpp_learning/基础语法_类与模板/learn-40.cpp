@@ -1,4 +1,4 @@
-// 练习继承中同名成员与同名函数的隐藏规则
+// 练习多态，知识点：虚函数、重写、抽象类与虚析构
 #include <iostream>
 #include <string>
 using namespace std;

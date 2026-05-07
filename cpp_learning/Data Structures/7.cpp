@@ -1,3 +1,4 @@
+// 练习从数组创建单链表，知识点：头指针、尾指针、尾插建表、链表遍历和释放
 #include <iostream>
 
 struct Node {

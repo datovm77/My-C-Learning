@@ -1,4 +1,4 @@
-// 练习数组遍历与循环累加求和，调试找隐藏Bug
+// 练习调试观察内存，知识点：整型字节布局与小端序
 #include <iostream>
 using namespace std;
 

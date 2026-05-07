@@ -1,3 +1,4 @@
+// 练习单链表递归查找最大值，知识点：递归基准情况、next指针遍历、链表内存释放
 #include <climits>
 #include <iostream>
 

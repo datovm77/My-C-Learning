@@ -1,3 +1,4 @@
+// 练习头插法创建单链表，知识点：新节点指向原头节点、更新head、链表遍历和释放
 #include <iostream>
 
 struct Node {

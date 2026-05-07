@@ -1,4 +1,4 @@
-// 练习函数对象（仿函数）的定义与使用
+// 练习派生类构造，知识点：基类无默认构造时的初始化列表调用
 #include <iostream>
 #include <string>
 using namespace std;

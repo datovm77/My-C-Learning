@@ -1,4 +1,4 @@
-// 练习智能指针管理数组与指针算术访问元素
+// 练习按行读入成绩并访问中间相邻元素，知识点：getline、istringstream、vector下标访问
 #include <iostream>
 #include <sstream>
 #include <string>

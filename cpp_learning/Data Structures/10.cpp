@@ -1,3 +1,4 @@
+// 练习尾插法从数组创建单链表，知识点：head头指针、tail尾指针、函数返回链表头
 #include <iostream>
 
 struct Node {

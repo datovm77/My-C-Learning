@@ -1,4 +1,4 @@
-// 练习多态与虚函数实现运行时动态绑定
+// 练习继承访问控制，知识点：public与protected继承下的成员可见性
 #include <iostream>
 
 class Base

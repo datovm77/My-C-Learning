@@ -1,4 +1,4 @@
-// 练习std::string高级操作，拼接查找格式化与数值转换
+// 练习动态内存管理，知识点：new、delete与动态数组
 #include<iostream>
 #include<format>
 
