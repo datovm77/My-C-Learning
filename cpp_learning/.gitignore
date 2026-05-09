@@ -1,17 +1,26 @@
 /笔记资料/
 
-# Linux / C++ build artifacts
+# C / C++ build artifacts
 *.o
 *.obj
 *.a
 *.so
 *.so.*
+*.dll
+*.dylib
+*.exe
 *.out
+a.out
 core
 gmon.out
+*.d
+*.gcda
+*.gcno
+*.gcov
 
 # Common CMake/Ninja build folders
 build/
+.build/
 cmake-build-*/
 CMakeFiles/
 CMakeCache.txt
@@ -19,7 +28,16 @@ compile_commands.json
 
 # VS Code local folder (if opened from this subdirectory)
 .vscode/
+.github/
 
 # Generated binaries from lesson files like learn-63.cpp -> learn-63
 **/learn-[0-9]*
 !**/learn-[0-9]*.cpp
+!**/learn-[0-9]*.c
+
+# Generated binaries from numbered lesson files like 8.c/8.cpp -> 8
+**/[0-9]*
+!**/[0-9]*.cpp
+!**/[0-9]*.c
+!**/[0-9]*.h
+!**/[0-9]*.hpp
