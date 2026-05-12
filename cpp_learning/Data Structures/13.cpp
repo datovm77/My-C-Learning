@@ -1,3 +1,4 @@
+// 练习自定义vector类与内存泄漏排查，知识点：深拷贝、拷贝构造、引用传参、new/delete配对
 #include <iostream>
 
 class vector_self

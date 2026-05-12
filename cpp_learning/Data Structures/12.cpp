@@ -1,3 +1,4 @@
+// 练习自定义vector类，知识点：深拷贝、拷贝构造、赋值运算符重载、友元函数
 #include <iostream>
 
 class vector_self

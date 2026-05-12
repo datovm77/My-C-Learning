@@ -1,4 +1,4 @@
-// 反转链表 通过反转元素 （未完成）
+// 练习反转单链表（通过反转元素值），知识点：数组暂存数据、双指针覆盖、动态数组new/delete
 #include <iostream>
 
 struct Node
@@ -48,6 +48,41 @@ void deleteList(Node *head)
     }
 }
 
+void reverse_link(Node *head, int size)
+{
+    if (size <= 0)
+    {
+        std::cerr << "size 必须大于 0" << std::endl;
+        return;
+    }
+
+    Node *first = head;
+    // int arr[size]; // 错误原因：这是变长数组(VLA)，不属于标准 C++，可移植性差且可能编译失败。
+    int *arr = new int[size];
+    int i = 0;
+    while (first != nullptr && i < size)
+    {
+        arr[i] = first->data;
+        i++;
+        first = first->next;
+    }
+
+    if (first != nullptr)
+    {
+        std::cerr << "size 小于链表长度，存在越界风险" << std::endl;
+        delete[] arr;
+        return;
+    }
+
+    first = head;
+    while (i--)
+    {
+        first->data = arr[i];
+        first = first->next;
+    }
+    delete[] arr;
+}
+
 int main()
 {
     int arr[] = {10, 20, 30, 40, 50};
@@ -56,6 +91,10 @@ int main()
     Node *head = createFromArray(arr, size);
 
     std::cout << "原链表: ";
+    display(head);
+
+    std::cout << "反转链表后";
+    reverse_link(head, size);
     display(head);
 
     deleteList(head);

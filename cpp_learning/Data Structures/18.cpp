@@ -1,3 +1,4 @@
+// 练习2D/3D点距离计算与继承，知识点：基类派生类、初始化列表、const成员函数、std::sqrt
 #include <iostream>
 #include <cmath>
 class C2D

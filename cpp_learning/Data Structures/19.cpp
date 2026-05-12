@@ -1,3 +1,4 @@
+// 练习Person继承与成绩等级评定，知识点：public继承、switch-case、成绩分段、getter const规范
 #include <iostream>
 #include <string>
 class Person

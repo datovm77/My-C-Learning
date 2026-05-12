@@ -1,3 +1,4 @@
+// 练习学生类管理成绩与平均值，知识点：初始化列表、const成员函数、vector容器、格式化输出
 #include <iostream>
 #include <vector>
 #include <string>
