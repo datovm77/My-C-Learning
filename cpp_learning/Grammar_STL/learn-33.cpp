@@ -1,135 +1,144 @@
-// 练习后缀表达式递归求值，递归与分词处理
 #include <iostream>
-#include <string>
-#include <vector>
-#include <cctype>
-//P1449 后缀表达式（递归法-难懂）
-struct Token
-{
-    bool isNumber;
-    int value;
-    char op;
+#include <cstring>
+using namespace std;
+
+class CPeople {
+protected:
+    char id[20];
+    char name[10];
 };
 
-// 将后缀表达式分词成：数字token / 运算符token。
-std::vector<Token> tokenize(const std::string &s)
-{
-    std::vector<Token> tokens;
-    int current = 0;
-    bool buildingNumber = false;
-
-    for (char ch : s)
-    {
-        if (std::isdigit(static_cast<unsigned char>(ch)))
-        {
-            current = current * 10 + (ch - '0');
-            buildingNumber = true;
-        }
-        else if (ch == '.')
-        {
-            if (buildingNumber)
-            {
-                tokens.push_back({true, current, 0});
-                current = 0;
-                buildingNumber = false;
-            }
-        }
-        else if (ch == '+' || ch == '-' || ch == '*' || ch == '/')
-        {
-            if (buildingNumber)
-            {
-                tokens.push_back({true, current, 0});
-                current = 0;
-                buildingNumber = false;
-            }
-            tokens.push_back({false, 0, ch});
-        }
-        else if (ch == '@')
-        {
-            if (buildingNumber)
-            {
-                tokens.push_back({true, current, 0});
-            }
-            break;
-        }
+class CInternetUser : public CPeople {
+protected:
+    char password[20];
+public:
+    void registerUser(const char* n, const char* i, const char* pwd) {
+        strcpy(name, n);
+        strcpy(id, i);
+        strcpy(password, pwd);
     }
+};
 
-    return tokens;
-}
-
-// 方案2：递归求值（从后往前）。
-// 对于后缀表达式：
-// - 读到数字 => 返回该数字
-// - 读到运算符op => 先递归得到右操作数，再递归得到左操作数
-bool evalFromRight(const std::vector<Token> &tokens, int &idx, int &value)
-{
-    if (idx < 0)
-    {
-        return false;
+class CBankCustomer : public CPeople {
+protected:
+    double balance;
+public:
+    CBankCustomer() : balance(0) {}
+    void openAccount(const char* n, const char* i) {
+        strcpy(name, n);
+        strcpy(id, i);
     }
-
-    const Token &tk = tokens[idx--];
-    if (tk.isNumber)
-    {
-        value = tk.value;
+    bool deposit(double money) {
+        balance += money;
         return true;
     }
-
-    int right = 0;
-    int left = 0;
-    if (!evalFromRight(tokens, idx, right))
-    {
-        return false;
+    bool withdraw(double money) {
+        if (balance < money) return false;
+        balance -= money;
+        return true;
     }
-    if (!evalFromRight(tokens, idx, left))
-    {
-        return false;
+};
+
+class CInternetBankCustomer : public CInternetUser, public CBankCustomer {
+    double balance;
+    double prevBalance;
+    double todayProfit;
+    double todayYield;
+    double yesterdayYield;
+public:
+    CInternetBankCustomer()
+        : balance(0), prevBalance(0), todayProfit(0), todayYield(0), yesterdayYield(0) {}
+    bool deposit(double money) {
+        if (CBankCustomer::balance < money) return false;
+        CBankCustomer::balance -= money;
+        balance += money;
+        return true;
     }
-
-    switch (tk.op)
-    {
-    case '+':
-        value = left + right;
-        break;
-    case '-':
-        value = left - right;
-        break;
-    case '*':
-        value = left * right;
-        break;
-    case '/':
-        value = left / right;
-        break;
-    default:
-        return false;
+    bool withdraw(double money) {
+        if (balance < money) return false;
+        balance -= money;
+        CBankCustomer::balance += money;
+        return true;
     }
-
-    return true;
-}
-
-int main()
-{
-    std::string s;
-    std::getline(std::cin, s);
-
-    std::vector<Token> tokens = tokenize(s);
-    if (tokens.empty())
-    {
-        std::cout << "Invalid expression\n";
-        return 0;
+    void setInterest(double interest) {
+        todayYield = interest;
     }
-
-    int idx = static_cast<int>(tokens.size()) - 1;
-    int ans = 0;
-    bool ok = evalFromRight(tokens, idx, ans);
-
-    // idx == -1 代表所有token都被合法消费完。
-    if (!ok || idx != -1)
-    {
-        std::cout << "Invalid expression\n";
-        return 0;
+    void calculateProfit() {
+        todayProfit = prevBalance * yesterdayYield / 10000.0;
+        balance += todayProfit;
+        prevBalance = balance;
+        yesterdayYield = todayYield;
     }
+    bool login(const char* i, const char* pwd) {
+        if (strcmp(CInternetUser::id, i) != 0 || strcmp(CInternetUser::password, pwd) != 0)
+            return false;
+        if (strcmp(CInternetUser::name, CBankCustomer::name) != 0 ||
+            strcmp(CInternetUser::id, CBankCustomer::id) != 0)
+            return false;
+        return true;
+    }
+    void print() {
+        cout << "Name: " << CInternetUser::name << " ID: " << CInternetUser::id << endl;
+        cout << "Bank balance: " << CBankCustomer::balance << endl;
+        cout << "Internet bank balance: " << balance << endl;
+        cout << endl;
+    }
+};
 
-    std::cout << ans << '\n';
+int main() {
+    int t, no_of_days, i;
+    char i_xm[20], i_id[20], i_mm[20], b_xm[20], b_id[20], ib_id[20], ib_mm[20];
+    double money, interest;
+    char op_code;
+
+    cin >> t;
+    while (t--) {
+        cin >> i_xm >> i_id >> i_mm;
+        cin >> b_xm >> b_id;
+        cin >> ib_id >> ib_mm;
+
+        CInternetBankCustomer ib_user;
+        ib_user.registerUser(i_xm, i_id, i_mm);
+        ib_user.openAccount(b_xm, b_id);
+
+        if (ib_user.login(ib_id, ib_mm) == 0) {
+            cout << "Password or ID incorrect" << endl;
+            continue;
+        }
+
+        cin >> no_of_days;
+        for (i = 0; i < no_of_days; i++) {
+            cin >> op_code >> money >> interest;
+            switch (op_code) {
+            case 'S': case 's':
+                if (ib_user.deposit(money) == 0) {
+                    cout << "Bank balance not enough" << endl;
+                    continue;
+                }
+                break;
+            case 'T': case 't':
+                if (ib_user.withdraw(money) == 0) {
+                    cout << "Internet bank balance not enough" << endl;
+                    continue;
+                }
+                break;
+            case 'D': case 'd':
+                ib_user.CBankCustomer::deposit(money);
+                break;
+            case 'W': case 'w':
+                if (ib_user.CBankCustomer::withdraw(money) == 0) {
+                    cout << "Bank balance not enough" << endl;
+                    continue;
+                }
+                break;
+            default:
+                cout << "Illegal input" << endl;
+                continue;
+            }
+            ib_user.setInterest(interest);
+            ib_user.calculateProfit();
+            ib_user.print();
+        }
+    }
     return 0;
 }
