@@ -11,18 +11,10 @@ private:
     T key;
     int len; // 长度
 public:
-    Cryption(T tk, T tt[], int n) // 参数依次对应密钥、明文、长度
-    {
-        key = tk;
-        std::copy(tt, tt + n, ptxt);
-        len = n;
-    }
-    void encrypt()
-    {
-        T max = *std::max_element(ptxt, ptxt + len);
-        std::transform(ptxt, ptxt + len, ctxt, [max, k = key](T x)
-                       { return max - x + k; });
-    }
+    // 旧写法是在此处直接写函数体；本题要求构造函数必须在类外实现。
+    Cryption(T tk, T tt[], int n); // 参数依次对应密钥、明文、长度
+    // 旧写法是在此处直接写函数体；本题要求加密方法必须在类外实现。
+    void encrypt();
     void print() // 打印，无需改造
     {
         int i;
@@ -33,6 +25,25 @@ public:
         std::cout << ctxt[i] << std::endl;
     }
 };
+
+// 类模板的成员函数在类外定义时，必须再次写 template <class T> 和 Cryption<T>::。
+template <class T>
+Cryption<T>::Cryption(T tk, T tt[], int n)
+{
+    key = tk;
+    std::copy(tt, tt + n, ptxt);
+    len = n;
+}
+
+template <class T>
+void Cryption<T>::encrypt()
+{
+    T maxValue = *std::max_element(ptxt, ptxt + len);
+    const T encryptionKey = key;
+    // 旧写法 [maxValue, k = key] 是 C++14 初始化捕获，严格 C++11 下会编译失败。
+    std::transform(ptxt, ptxt + len, ctxt, [maxValue, encryptionKey](T x)
+                   { return maxValue - x + encryptionKey; });
+}
 
 int main()
 {
