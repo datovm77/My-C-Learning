@@ -1,3 +1,4 @@
+// P8647 [蓝桥杯 2017 省 AB] 分巧克力
 #include <iostream>
 #include <algorithm>
 #include <string>

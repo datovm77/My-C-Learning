@@ -1,3 +1,4 @@
+// P1102 A-B 数对
 #include <iostream>
 #include <vector>
 #include <algorithm>

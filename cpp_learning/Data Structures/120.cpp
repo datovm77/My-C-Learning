@@ -1,3 +1,4 @@
+// P2249 【深基13.例1】查找
 #include <iostream>
 
 static int a[1000005];

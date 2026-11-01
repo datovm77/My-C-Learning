@@ -1,3 +1,4 @@
+// P1147 连续正整数和
 #include <iostream>
 #include <vector>
 

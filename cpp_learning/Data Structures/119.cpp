@@ -1,3 +1,4 @@
+// P2249 【深基13.例1】查找
 #include <iostream>
 
 int bsearch(int *arr, int size, int target)
