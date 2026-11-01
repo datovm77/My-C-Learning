@@ -1,4 +1,3 @@
-// 二叉树遍历：按层序建树并输出前、中、后序遍历
 #include <iostream>
 #include <queue>
 #include <vector>
