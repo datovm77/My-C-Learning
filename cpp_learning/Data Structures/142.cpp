@@ -1,3 +1,4 @@
+// P1094 [NOIP 2007 普及组] 纪念品分组
 #include <iostream>
 #include <vector>
 #include <algorithm>
