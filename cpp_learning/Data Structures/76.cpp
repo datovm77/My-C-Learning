@@ -1,3 +1,4 @@
+// P5734 【深基6.例6】文字处理软件
 #include <iostream>
 #include <string>
 

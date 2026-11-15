@@ -1,3 +1,4 @@
+// [蓝桥杯 2020 省 B] 跑步锻炼
 #include <iostream>
 using namespace std;
 

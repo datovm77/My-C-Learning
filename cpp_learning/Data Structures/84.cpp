@@ -1,3 +1,4 @@
+// P8627 [蓝桥杯 2015 省 A] 饮料换购
 #include <iostream>
 
 int num(int buy)

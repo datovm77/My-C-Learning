@@ -1,3 +1,4 @@
+// P1093 [NOIP 2007 普及组] 奖学金
 #include <iostream>
 #include <vector>
 #include <algorithm>

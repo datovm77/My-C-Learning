@@ -1,3 +1,4 @@
+// P1029 [NOIP 2001 普及组] 最大公约数和最小公倍数问题
 #include <iostream>
 
 int GCD(int a, int b)

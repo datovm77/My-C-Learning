@@ -1,3 +1,4 @@
+// P8772 [蓝桥杯 2022 省 A] 求和
 #include <iostream>
 #include <vector>
 int main()
