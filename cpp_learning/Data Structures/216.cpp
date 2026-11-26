@@ -1,4 +1,4 @@
-// P1090 合并果子
+// 小根堆应用演示：合并果子（非练习）
 #include <iostream>
 #include <queue>
 #include <vector>
